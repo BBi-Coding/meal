@@ -6,445 +6,30 @@
   <meta name="color-scheme" content="light dark" />
   <title>Meal Plan (Brajan & Abigail) — Germany</title>
   <meta name="description" content="A mobile-friendly 7-day meal rotation with profile switch (Brajan/Abigail), shopping list and weekly adjustment rules. Built for Germany supermarkets." />
-  <style>
-    :root{
-      --bg: #0b0f14;
-      --card: #121824;
-      --card2: #0f1520;
-      --text: #eaf0ff;
-      --muted: #a9b6d1;
-      --accent: #6ea8fe;
-      --accent2: #63e6be;
-      --warn: #ffd43b;
-      --danger: #ff6b6b;
-      --border: rgba(255,255,255,.12);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 16px;
-      --radius2: 12px;
-      --max: 1080px;
-      --pad: 16px;
-      --tap: 44px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root{
-        --bg: #f6f8ff;
-        --card: #ffffff;
-        --card2: #f2f5ff;
-        --text: #0e1320;
-        --muted: #4a5876;
-        --border: rgba(14,19,32,.12);
-        --shadow: 0 12px 30px rgba(18, 24, 36, .12);
-      }
-    }
-
-    *{ box-sizing: border-box; }
-    html,body{ height: 100%; }
-    body{
-      margin: 0;
-      font-family: var(--font);
-      background: radial-gradient(1200px 700px at 20% -10%, rgba(110,168,254,.22), transparent 55%),
-                  radial-gradient(900px 600px at 80% 0%, rgba(99,230,190,.18), transparent 50%),
-                  var(--bg);
-      color: var(--text);
-      line-height: 1.45;
-    }
-    a{ color: inherit; }
-    .container{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-    }
-
-    /* Header */
-    header{
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(12px);
-      background: color-mix(in oklab, var(--bg) 86%, transparent);
-      border-bottom: 1px solid var(--border);
-    }
-    .topbar{
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 0;
-    }
-    .brand{
-      display: grid;
-      gap: 2px;
-      min-width: 0;
-    }
-    .brand h1{
-      font-size: 16px;
-      margin: 0;
-      letter-spacing: .2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .brand p{
-      margin: 0;
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    nav{
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .pill{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 36px;
-      padding: 0 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card) 70%, transparent);
-      text-decoration: none;
-      font-size: 13px;
-      color: var(--text);
-      cursor: pointer;
-      user-select: none;
-    }
-    .pill:focus-visible{
-      outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent);
-      outline-offset: 2px;
-    }
-    .pill.primary{
-      border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
-      background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 25%, transparent), color-mix(in oklab, var(--accent2) 18%, transparent));
-    }
-
-    /* Profile switch */
-    .profileSwitch{
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card2) 84%, transparent);
-    }
-    .profileBtn{
-      height: 32px;
-      padding: 0 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text);
-      cursor: pointer;
-      font-size: 13px;
-      min-width: 92px;
-    }
-    .profileBtn[aria-pressed="true"]{
-      border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
-      background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 24%, transparent), color-mix(in oklab, var(--accent2) 14%, transparent));
-    }
-    .profileBtn:focus-visible{
-      outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent);
-      outline-offset: 2px;
-    }
-
-    /* Sections */
-    main{ padding: 18px 0 56px; }
-    section{ scroll-margin-top: 86px; }
-    .grid{
-      display: grid;
-      gap: 14px;
-    }
-    @media (min-width: 860px){
-      .grid.two{ grid-template-columns: 1.1fr .9fr; align-items: start; }
-      .grid.three{ grid-template-columns: 1fr 1fr 1fr; }
-    }
-    .card{
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card) 92%, transparent);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: clip;
-    }
-    .card .inner{ padding: 16px; }
-    .card h2, .card h3{ margin: 0 0 8px; }
-    .card h2{ font-size: 18px; }
-    .card h3{ font-size: 15px; color: color-mix(in oklab, var(--text) 90%, var(--muted)); }
-    .muted{ color: var(--muted); }
-
-    .hero{
-      display: grid;
-      gap: 14px;
-      padding: 16px;
-      background:
-        radial-gradient(900px 420px at 20% -20%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 55%),
-        radial-gradient(900px 420px at 85% -10%, color-mix(in oklab, var(--accent2) 28%, transparent), transparent 55%),
-        color-mix(in oklab, var(--card2) 95%, transparent);
-      border-bottom: 1px solid var(--border);
-    }
-    .heroTitle{
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .heroTitle h2{
-      margin: 0;
-      font-size: 20px;
-      letter-spacing: .2px;
-    }
-    .badgeRow{ display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .badge{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card) 70%, transparent);
-      font-size: 13px;
-    }
-    .dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, transparent);
-    }
-    .dot.green{
-      background: var(--accent2);
-      box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent2) 18%, transparent);
-    }
-    .dot.yellow{
-      background: var(--warn);
-      box-shadow: 0 0 0 4px color-mix(in oklab, var(--warn) 18%, transparent);
-    }
-
-    /* Food gallery */
-    .gallery{
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: 520px){
-      .gallery{ grid-template-columns: repeat(4, 1fr); }
-    }
-    .thumb{
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card2) 95%, transparent);
-      aspect-ratio: 1/1;
-    }
-    .thumb img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.05) contrast(1.03);
-    }
-    .thumb span{
-      position: absolute;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: white;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
-      text-shadow: 0 1px 10px rgba(0,0,0,.55);
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    /* Rotation (accordions) */
-    .days{ display: grid; gap: 12px; }
-    details.day{
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card) 92%, transparent);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: clip;
-    }
-    summary{
-      list-style: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      min-height: var(--tap);
-      user-select: none;
-    }
-    summary::-webkit-details-marker{ display:none; }
-    .dayTitle{
-      display: grid;
-      gap: 2px;
-      min-width: 0;
-    }
-    .dayTitle strong{ font-size: 15px; }
-    .dayTitle span{ font-size: 12px; color: var(--muted); }
-    .chev{
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      background: color-mix(in oklab, var(--card2) 80%, transparent);
-    }
-    details[open] .chev{ transform: rotate(180deg); }
-    .dayBody{ padding: 0 16px 16px; }
-    .mealGrid{ display: grid; gap: 10px; margin-top: 8px; }
-    @media (min-width: 860px){
-      .mealGrid{ grid-template-columns: 1fr 1fr; }
-    }
-    .meal{
-      border-radius: var(--radius2);
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card2) 92%, transparent);
-      padding: 12px;
-    }
-    .meal h4{
-      margin: 0 0 6px;
-      font-size: 14px;
-      letter-spacing: .15px;
-    }
-    .meal ul{ margin: 0; padding-left: 18px; color: color-mix(in oklab, var(--text) 92%, var(--muted)); }
-    .meal li{ margin: 4px 0; }
-
-    /* Shopping */
-    .shopControls{
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .btn{
-      height: 40px;
-      padding: 0 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card2) 88%, transparent);
-      color: var(--text);
-      cursor: pointer;
-      font-size: 13px;
-      min-width: 140px;
-    }
-    .btn.primary{
-      border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
-      background: color-mix(in oklab, var(--accent) 18%, var(--card2));
-    }
-    .btn.danger{
-      border-color: color-mix(in oklab, var(--danger) 55%, var(--border));
-      background: color-mix(in oklab, var(--danger) 14%, var(--card2));
-    }
-    .btn:focus-visible{
-      outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent);
-      outline-offset: 2px;
-    }
-    .shopGrid{ display: grid; gap: 12px; margin-top: 12px; }
-    @media (min-width: 860px){
-      .shopGrid{ grid-template-columns: 1fr 1fr; }
-    }
-    .checklist{
-      padding: 12px;
-      border-radius: var(--radius2);
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card2) 92%, transparent);
-    }
-    .checklist h4{
-      margin: 0 0 10px;
-      font-size: 14px;
-      color: color-mix(in oklab, var(--text) 92%, var(--muted));
-      letter-spacing: .2px;
-    }
-    .item{
-      display: grid;
-      grid-template-columns: 26px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: 8px 6px;
-      border-radius: 10px;
-    }
-    .item:hover{ background: color-mix(in oklab, var(--card) 40%, transparent); }
-    input[type="checkbox"]{
-      width: 20px;
-      height: 20px;
-      margin-top: 2px;
-      accent-color: var(--accent);
-    }
-    .item label{
-      cursor: pointer;
-      line-height: 1.3;
-    }
-    .qty{ color: var(--muted); font-size: 12px; margin-top: 4px; }
-    .done label{
-      opacity: .75;
-      text-decoration: line-through;
-    }
-
-    /* Footer */
-    footer{
-      padding: 18px 0 28px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .kpi{
-      display: grid;
-      gap: 10px;
-    }
-    @media (min-width: 860px){
-      .kpi{ grid-template-columns: 1fr 1fr 1fr; }
-    }
-    .kpi .tile{
-      border-radius: var(--radius2);
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--card2) 92%, transparent);
-      padding: 12px;
-    }
-    .tile strong{ display:block; font-size: 14px; }
-    .tile span{ color: var(--muted); font-size: 12px; }
-    .ruleList{ margin: 10px 0 0; padding-left: 18px; }
-    .ruleList li{ margin: 7px 0; }
-    .small{ font-size: 12px; color: var(--muted); }
-
-    /* Profile conditional rendering */
-    .profileOnly{ display:none; }
-    .profileOnly.active{ display:block; }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header>
     <div class="container">
       <div class="topbar">
         <div class="brand">
-          <h1 id="pageTitle">Meal Plan (Germany)</h1>
-          <p id="pageSubtitle">Choose a profile to see targets and portions.</p>
+          <h1 id="pageTitle" data-i18n="header.title">Meal Plan (Germany)</h1>
+          <p id="pageSubtitle" data-i18n="header.subtitle">Choose a profile to see targets and portions.</p>
         </div>
         <div style="display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap">
-          <div class="profileSwitch" role="group" aria-label="Profile selector">
+          <div class="profileSwitch" role="group" aria-label="Profile selector" data-i18n-aria-label="header.profileSelector">
             <button class="profileBtn" type="button" id="profileBrajan" aria-pressed="true" data-profile="brajan">Brajan</button>
             <button class="profileBtn" type="button" id="profileAbigail" aria-pressed="false" data-profile="abigail">Abigail</button>
           </div>
+          <div class="langSwitch" role="group" aria-label="Language selector" data-i18n-aria-label="header.languageSelector">
+            <button class="langBtn" type="button" id="langEn" aria-pressed="true" data-lang="en">ENG</button>
+            <button class="langBtn" type="button" id="langDe" aria-pressed="false" data-lang="de">DE</button>
+          </div>
           <nav aria-label="Page navigation">
-            <a class="pill primary" href="#goal">Goal</a>
-            <a class="pill" href="#rotation">Rotation</a>
-            <a class="pill" href="#shopping">Shopping</a>
-            <a class="pill" href="#rules">Rules</a>
+            <a class="pill primary" href="#goal" data-i18n="nav.goal">Goal</a>
+            <a class="pill" href="#rotation" data-i18n="nav.rotation">Rotation</a>
+            <a class="pill" href="#shopping" data-i18n="nav.shopping">Shopping</a>
+            <a class="pill" href="#rules" data-i18n="nav.rules">Rules</a>
           </nav>
         </div>
       </div>
@@ -455,79 +40,27 @@
     <section id="goal" class="card" aria-labelledby="goalTitle">
       <div class="hero">
         <div class="heroTitle">
-          <div class="profileOnly active" data-profile="brajan">
+          <div class="profileOnly active goalBlock" data-profile="brajan">
+            <div class="goalKicker" data-i18n="goal.kicker">Daily goal</div>
             <h2 id="goalTitle">Brajan: ~3700 kcal/day (lean bulk)</h2>
-            <div class="badgeRow" aria-label="Targets">
-              <div class="badge"><span class="dot"></span><strong>Calories</strong>&nbsp;~3700/day</div>
-              <div class="badge"><span class="dot green"></span><strong>Protein</strong>&nbsp;~190–230 g/day</div>
-              <div class="badge"><span class="dot yellow"></span><strong>Comfort</strong>&nbsp;moderate lactose/gluten</div>
+            <div class="badgeRow" aria-label="Targets" data-i18n-aria-label="goal.targetsAria">
+              <div class="badge"><span class="dot"></span><strong data-i18n="goal.calories">Calories</strong>&nbsp;~3700/day</div>
+              <div class="badge"><span class="dot green"></span><strong data-i18n="goal.protein">Protein</strong>&nbsp;~190–230 g/day</div>
+              <div class="badge"><span class="dot yellow"></span><strong data-i18n="goal.comfort">Comfort</strong>&nbsp;<span data-i18n="goal.comfort.brajan">moderate lactose/gluten</span></div>
             </div>
           </div>
-          <div class="profileOnly" data-profile="abigail">
+          <div class="profileOnly goalBlock" data-profile="abigail">
+            <div class="goalKicker" data-i18n="goal.kicker">Daily goal</div>
             <h2 id="goalTitleAbigail">Abigail: ~2300 kcal/day (gain weight)</h2>
-            <div class="badgeRow" aria-label="Targets">
-              <div class="badge"><span class="dot"></span><strong>Calories</strong>&nbsp;~2300/day</div>
-              <div class="badge"><span class="dot green"></span><strong>Protein</strong>&nbsp;~110–130 g/day</div>
-              <div class="badge"><span class="dot yellow"></span><strong>Comfort</strong>&nbsp;no restrictions</div>
+            <div class="badgeRow" aria-label="Targets" data-i18n-aria-label="goal.targetsAria">
+              <div class="badge"><span class="dot"></span><strong data-i18n="goal.calories">Calories</strong>&nbsp;~2300/day</div>
+              <div class="badge"><span class="dot green"></span><strong data-i18n="goal.protein">Protein</strong>&nbsp;~110–130 g/day</div>
+              <div class="badge"><span class="dot yellow"></span><strong data-i18n="goal.comfort">Comfort</strong>&nbsp;<span data-i18n="goal.comfort.abigail">no restrictions</span></div>
             </div>
           </div>
         </div>
-        <div class="kpi" role="list">
-          <div class="tile" role="listitem">
-            <strong>Supermarket-friendly</strong>
-            <span>Aldi / Lidl / REWE / Edeka foods</span>
-          </div>
-          <div class="tile" role="listitem">
-            <strong>Mostly easy carbs</strong>
-            <span>Rice, potatoes, oats; bread/pasta only if you tolerate</span>
-          </div>
-          <div class="tile" role="listitem">
-            <strong>Mostly lactose-free</strong>
-            <span>Choose “laktosefrei” milk, Skyr/Quark, yogurt</span>
-          </div>
-        </div>
       </div>
-      <div class="inner">
-        <p class="muted" style="margin-top:0">
-          Use this page for your daily weigh-ins and weekly adjustments. Your <strong>weight trend</strong> is the main indicator.
-          Body fat/muscle numbers are helpful mainly as <strong>long-term trends</strong>.
-        </p>
-
-        <div class="gallery" aria-label="Food image gallery">
-          <div class="thumb">
-            <img loading="lazy" alt="Oats" src="https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=900&q=70" />
-            <span>Oats</span>
-          </div>
-          <div class="thumb">
-            <img loading="lazy" alt="Chicken" src="https://images.unsplash.com/photo-1604908176997-125f25cc500f?auto=format&fit=crop&w=900&q=70" />
-            <span>Chicken / Turkey</span>
-          </div>
-          <div class="thumb">
-            <img loading="lazy" alt="Rice" src="https://images.unsplash.com/photo-1604909052743-94e4683d975d?auto=format&fit=crop&w=900&q=70" />
-            <span>Rice</span>
-          </div>
-          <div class="thumb">
-            <img loading="lazy" alt="Potatoes" src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=900&q=70" />
-            <span>Potatoes</span>
-          </div>
-          <div class="thumb">
-            <img loading="lazy" alt="Yogurt bowl" src="https://images.unsplash.com/photo-1514995669114-6081e934b693?auto=format&fit=crop&w=900&q=70" />
-            <span>Skyr / Quark</span>
-          </div>
-          <div class="thumb">
-            <img loading="lazy" alt="Eggs" src="https://images.unsplash.com/photo-1518569656558-1f25e69d93d4?auto=format&fit=crop&w=900&q=70" />
-            <span>Eggs</span>
-          </div>
-          <div class="thumb">
-            <img loading="lazy" alt="Salmon" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=70" />
-            <span>Salmon (optional)</span>
-          </div>
-          <div class="thumb">
-            <img loading="lazy" alt="Berries" src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=900&q=70" />
-            <span>Frozen berries</span>
-          </div>
-        </div>
-      </div>
+      
     </section>
 
     <div style="height:14px"></div>
@@ -535,15 +68,15 @@
     <section id="rotation" aria-labelledby="rotationTitle">
       <div class="card">
         <div class="inner">
-          <h2 id="rotationTitle">7-day rotation (tap a day)</h2>
+          <h2 id="rotationTitle" data-i18n="rotation.title">7-day rotation (tap a day)</h2>
           <div class="profileOnly active" data-profile="brajan">
             <p class="muted" style="margin:6px 0 0">
-              Keep lactose/gluten moderate by preferring <strong>rice/potatoes/oats</strong> and choosing <strong>laktosefrei</strong> dairy most days.
+              <span data-i18n-html="rotation.note.b">Keep lactose/gluten moderate by preferring <strong>rice/potatoes/oats</strong> and choosing <strong>laktosefrei</strong> dairy most days.</span>
             </p>
           </div>
           <div class="profileOnly" data-profile="abigail">
             <p class="muted" style="margin:6px 0 0">
-              No restrictions. If appetite is low, add calories with easy carbs (rice/potatoes/oats) or a bit more oil/nuts.
+              <span data-i18n="rotation.note.a">No restrictions. If appetite is low, add calories with easy carbs (rice/potatoes/oats) or a bit more oil/nuts.</span>
             </p>
           </div>
         </div>
@@ -1177,96 +710,96 @@
       <div class="inner">
         <div class="shopControls">
           <div>
-            <h2 id="shoppingTitle" style="margin:0 0 4px">Shopping list (1 week)</h2>
-            <div class="small">Tip: the checklist saves automatically on this device (separately per profile).</div>
+            <h2 id="shoppingTitle" style="margin:0 0 4px" data-i18n="shopping.title">Shopping list (1 week)</h2>
+            <div class="small" data-i18n="shopping.tip">Tip: the checklist saves automatically on this device (separately per profile).</div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
-            <button class="btn danger" id="resetList" type="button">Reset checklist</button>
-            <button class="btn primary" id="expandAll" type="button">Expand all days</button>
+            <button class="btn danger" id="resetList" type="button" data-i18n="shopping.reset">Reset checklist</button>
+            <button class="btn primary" id="expandAll" type="button" data-i18n="rotation.expandAll">Expand all days</button>
           </div>
         </div>
 
         <div class="shopGrid profileOnly active" data-profile="brajan" role="list">
           <div class="checklist" role="listitem">
-            <h4>Protein</h4>
-            <div class="item"><input id="b_p1" type="checkbox"><label for="b_p1">Chicken breast / turkey<div class="qty">~2.0–2.5 kg raw</div></label></div>
-            <div class="item"><input id="b_p2" type="checkbox"><label for="b_p2">Lean mince (beef or turkey)<div class="qty">~1.2–1.5 kg</div></label></div>
-            <div class="item"><input id="b_p3" type="checkbox"><label for="b_p3">Salmon (optional but recommended)<div class="qty">~0.5–0.7 kg</div></label></div>
-            <div class="item"><input id="b_p4" type="checkbox"><label for="b_p4">Eggs<div class="qty">24–30</div></label></div>
-            <div class="item"><input id="b_p5" type="checkbox"><label for="b_p5">Skyr/Quark (laktosefrei)<div class="qty">~3.5–5.0 kg total</div></label></div>
-            <div class="item"><input id="b_p6" type="checkbox"><label for="b_p6">Protein powder (whey isolate / lactose-free) (optional)<div class="qty">0–1 shakes/day</div></label></div>
+            <h4 data-i18n="shopping.cat.protein">Protein</h4>
+            <div class="item"><input id="b_p1" type="checkbox"><label for="b_p1"><span data-i18n="shopping.item.b_p1">Chicken breast / turkey</span><div class="qty" data-i18n="shopping.qty.b_p1">~2.0–2.5 kg raw</div></label></div>
+            <div class="item"><input id="b_p2" type="checkbox"><label for="b_p2"><span data-i18n="shopping.item.b_p2">Lean mince (beef or turkey)</span><div class="qty" data-i18n="shopping.qty.b_p2">~1.2–1.5 kg</div></label></div>
+            <div class="item"><input id="b_p3" type="checkbox"><label for="b_p3"><span data-i18n="shopping.item.b_p3">Salmon (optional but recommended)</span><div class="qty" data-i18n="shopping.qty.b_p3">~0.5–0.7 kg</div></label></div>
+            <div class="item"><input id="b_p4" type="checkbox"><label for="b_p4"><span data-i18n="shopping.item.b_p4">Eggs</span><div class="qty" data-i18n="shopping.qty.b_p4">24–30</div></label></div>
+            <div class="item"><input id="b_p5" type="checkbox"><label for="b_p5"><span data-i18n="shopping.item.b_p5">Skyr/Quark (laktosefrei)</span><div class="qty" data-i18n="shopping.qty.b_p5">~3.5–5.0 kg total</div></label></div>
+            <div class="item"><input id="b_p6" type="checkbox"><label for="b_p6"><span data-i18n="shopping.item.b_p6">Protein powder (whey isolate / lactose-free) (optional)</span><div class="qty" data-i18n="shopping.qty.b_p6">0–1 shakes/day</div></label></div>
           </div>
 
           <div class="checklist" role="listitem">
-            <h4>Carbs</h4>
-            <div class="item"><input id="b_c1" type="checkbox"><label for="b_c1">Oats (Haferflocken)<div class="qty">~1.0–1.5 kg</div></label></div>
-            <div class="item"><input id="b_c2" type="checkbox"><label for="b_c2">Rice (dry) / microwave rice<div class="qty">~1.5–2.0 kg dry (or rice packs)</div></label></div>
-            <div class="item"><input id="b_c3" type="checkbox"><label for="b_c3">Potatoes<div class="qty">~5–7 kg</div></label></div>
-            <div class="item"><input id="b_c4" type="checkbox"><label for="b_c4">Rice cakes<div class="qty">3–5 packs</div></label></div>
-            <div class="item"><input id="b_c5" type="checkbox"><label for="b_c5">Bananas<div class="qty">14–18</div></label></div>
-            <div class="item"><input id="b_c6" type="checkbox"><label for="b_c6">Frozen berries<div class="qty">~1.5–2.5 kg</div></label></div>
-            <div class="item"><input id="b_c7" type="checkbox"><label for="b_c7">Honey / jam<div class="qty">1 jar</div></label></div>
+            <h4 data-i18n="shopping.cat.carbs">Carbs</h4>
+            <div class="item"><input id="b_c1" type="checkbox"><label for="b_c1"><span data-i18n="shopping.item.b_c1">Oats (Haferflocken)</span><div class="qty" data-i18n="shopping.qty.b_c1">~1.0–1.5 kg</div></label></div>
+            <div class="item"><input id="b_c2" type="checkbox"><label for="b_c2"><span data-i18n="shopping.item.b_c2">Rice (dry) / microwave rice</span><div class="qty" data-i18n="shopping.qty.b_c2">~1.5–2.0 kg dry (or rice packs)</div></label></div>
+            <div class="item"><input id="b_c3" type="checkbox"><label for="b_c3"><span data-i18n="shopping.item.b_c3">Potatoes</span><div class="qty" data-i18n="shopping.qty.b_c3">~5–7 kg</div></label></div>
+            <div class="item"><input id="b_c4" type="checkbox"><label for="b_c4"><span data-i18n="shopping.item.b_c4">Rice cakes</span><div class="qty" data-i18n="shopping.qty.b_c4">3–5 packs</div></label></div>
+            <div class="item"><input id="b_c5" type="checkbox"><label for="b_c5"><span data-i18n="shopping.item.b_c5">Bananas</span><div class="qty" data-i18n="shopping.qty.b_c5">14–18</div></label></div>
+            <div class="item"><input id="b_c6" type="checkbox"><label for="b_c6"><span data-i18n="shopping.item.b_c6">Frozen berries</span><div class="qty" data-i18n="shopping.qty.b_c6">~1.5–2.5 kg</div></label></div>
+            <div class="item"><input id="b_c7" type="checkbox"><label for="b_c7"><span data-i18n="shopping.item.b_c7">Honey / jam</span><div class="qty" data-i18n="shopping.qty.b_c7">1 jar</div></label></div>
           </div>
 
           <div class="checklist" role="listitem">
-            <h4>Fats / extras</h4>
-            <div class="item"><input id="b_f1" type="checkbox"><label for="b_f1">Olive oil<div class="qty">1 bottle</div></label></div>
-            <div class="item"><input id="b_f2" type="checkbox"><label for="b_f2">Peanut butter<div class="qty">1 jar</div></label></div>
-            <div class="item"><input id="b_f3" type="checkbox"><label for="b_f3">Nuts (if tolerated)<div class="qty">300–500 g</div></label></div>
+            <h4 data-i18n="shopping.cat.fats">Fats / extras</h4>
+            <div class="item"><input id="b_f1" type="checkbox"><label for="b_f1"><span data-i18n="shopping.item.b_f1">Olive oil</span><div class="qty" data-i18n="shopping.qty.b_f1">1 bottle</div></label></div>
+            <div class="item"><input id="b_f2" type="checkbox"><label for="b_f2"><span data-i18n="shopping.item.b_f2">Peanut butter</span><div class="qty" data-i18n="shopping.qty.b_f2">1 jar</div></label></div>
+            <div class="item"><input id="b_f3" type="checkbox"><label for="b_f3"><span data-i18n="shopping.item.b_f3">Nuts (if tolerated)</span><div class="qty" data-i18n="shopping.qty.b_f3">300–500 g</div></label></div>
           </div>
 
           <div class="checklist" role="listitem">
-            <h4>Vegetables</h4>
-            <div class="item"><input id="b_v1" type="checkbox"><label for="b_v1">Frozen vegetable mix<div class="qty">~2–3 kg</div></label></div>
-            <div class="item"><input id="b_v2" type="checkbox"><label for="b_v2">Fresh salad + tomatoes/cucumber<div class="qty">Aim ~300 g/day</div></label></div>
-            <div class="item"><input id="b_v3" type="checkbox"><label for="b_v3">Optional: onions/garlic/spices<div class="qty">for easy flavor</div></label></div>
+            <h4 data-i18n="shopping.cat.veg">Vegetables</h4>
+            <div class="item"><input id="b_v1" type="checkbox"><label for="b_v1"><span data-i18n="shopping.item.b_v1">Frozen vegetable mix</span><div class="qty" data-i18n="shopping.qty.b_v1">~2–3 kg</div></label></div>
+            <div class="item"><input id="b_v2" type="checkbox"><label for="b_v2"><span data-i18n="shopping.item.b_v2">Fresh salad + tomatoes/cucumber</span><div class="qty" data-i18n="shopping.qty.b_v2">Aim ~300 g/day</div></label></div>
+            <div class="item"><input id="b_v3" type="checkbox"><label for="b_v3"><span data-i18n="shopping.item.b_v3">Optional: onions/garlic/spices</span><div class="qty" data-i18n="shopping.qty.b_v3">for easy flavor</div></label></div>
           </div>
         </div>
 
         <div class="shopGrid profileOnly" data-profile="abigail" role="list">
           <div class="checklist" role="listitem">
-            <h4>Protein</h4>
-            <div class="item"><input id="a_p1" type="checkbox"><label for="a_p1">Chicken breast / turkey<div class="qty">~1.2–1.6 kg raw</div></label></div>
-            <div class="item"><input id="a_p2" type="checkbox"><label for="a_p2">Lean mince (beef or turkey)<div class="qty">~0.7–1.0 kg</div></label></div>
-            <div class="item"><input id="a_p3" type="checkbox"><label for="a_p3">Salmon (optional)<div class="qty">~0.3–0.5 kg</div></label></div>
-            <div class="item"><input id="a_p4" type="checkbox"><label for="a_p4">Eggs<div class="qty">14–20</div></label></div>
-            <div class="item"><input id="a_p5" type="checkbox"><label for="a_p5">Skyr/Quark / yogurt<div class="qty">~2.0–3.0 kg total</div></label></div>
-            <div class="item"><input id="a_p6" type="checkbox"><label for="a_p6">Protein powder (optional)<div class="qty">only if needed</div></label></div>
+            <h4 data-i18n="shopping.cat.protein">Protein</h4>
+            <div class="item"><input id="a_p1" type="checkbox"><label for="a_p1"><span data-i18n="shopping.item.a_p1">Chicken breast / turkey</span><div class="qty" data-i18n="shopping.qty.a_p1">~1.2–1.6 kg raw</div></label></div>
+            <div class="item"><input id="a_p2" type="checkbox"><label for="a_p2"><span data-i18n="shopping.item.a_p2">Lean mince (beef or turkey)</span><div class="qty" data-i18n="shopping.qty.a_p2">~0.7–1.0 kg</div></label></div>
+            <div class="item"><input id="a_p3" type="checkbox"><label for="a_p3"><span data-i18n="shopping.item.a_p3">Salmon (optional)</span><div class="qty" data-i18n="shopping.qty.a_p3">~0.3–0.5 kg</div></label></div>
+            <div class="item"><input id="a_p4" type="checkbox"><label for="a_p4"><span data-i18n="shopping.item.a_p4">Eggs</span><div class="qty" data-i18n="shopping.qty.a_p4">14–20</div></label></div>
+            <div class="item"><input id="a_p5" type="checkbox"><label for="a_p5"><span data-i18n="shopping.item.a_p5">Skyr/Quark / yogurt</span><div class="qty" data-i18n="shopping.qty.a_p5">~2.0–3.0 kg total</div></label></div>
+            <div class="item"><input id="a_p6" type="checkbox"><label for="a_p6"><span data-i18n="shopping.item.a_p6">Protein powder (optional)</span><div class="qty" data-i18n="shopping.qty.a_p6">only if needed</div></label></div>
           </div>
 
           <div class="checklist" role="listitem">
-            <h4>Carbs</h4>
-            <div class="item"><input id="a_c1" type="checkbox"><label for="a_c1">Oats (Haferflocken)<div class="qty">~0.7–1.0 kg</div></label></div>
-            <div class="item"><input id="a_c2" type="checkbox"><label for="a_c2">Rice (dry) / microwave rice<div class="qty">~0.9–1.3 kg dry (or rice packs)</div></label></div>
-            <div class="item"><input id="a_c3" type="checkbox"><label for="a_c3">Potatoes<div class="qty">~3–5 kg</div></label></div>
-            <div class="item"><input id="a_c4" type="checkbox"><label for="a_c4">Rice cakes<div class="qty">2–3 packs</div></label></div>
-            <div class="item"><input id="a_c5" type="checkbox"><label for="a_c5">Bananas<div class="qty">10–14</div></label></div>
-            <div class="item"><input id="a_c6" type="checkbox"><label for="a_c6">Frozen berries<div class="qty">~1.0–2.0 kg</div></label></div>
-            <div class="item"><input id="a_c7" type="checkbox"><label for="a_c7">Honey / jam<div class="qty">1 jar</div></label></div>
+            <h4 data-i18n="shopping.cat.carbs">Carbs</h4>
+            <div class="item"><input id="a_c1" type="checkbox"><label for="a_c1"><span data-i18n="shopping.item.a_c1">Oats (Haferflocken)</span><div class="qty" data-i18n="shopping.qty.a_c1">~0.7–1.0 kg</div></label></div>
+            <div class="item"><input id="a_c2" type="checkbox"><label for="a_c2"><span data-i18n="shopping.item.a_c2">Rice (dry) / microwave rice</span><div class="qty" data-i18n="shopping.qty.a_c2">~0.9–1.3 kg dry (or rice packs)</div></label></div>
+            <div class="item"><input id="a_c3" type="checkbox"><label for="a_c3"><span data-i18n="shopping.item.a_c3">Potatoes</span><div class="qty" data-i18n="shopping.qty.a_c3">~3–5 kg</div></label></div>
+            <div class="item"><input id="a_c4" type="checkbox"><label for="a_c4"><span data-i18n="shopping.item.a_c4">Rice cakes</span><div class="qty" data-i18n="shopping.qty.a_c4">2–3 packs</div></label></div>
+            <div class="item"><input id="a_c5" type="checkbox"><label for="a_c5"><span data-i18n="shopping.item.a_c5">Bananas</span><div class="qty" data-i18n="shopping.qty.a_c5">10–14</div></label></div>
+            <div class="item"><input id="a_c6" type="checkbox"><label for="a_c6"><span data-i18n="shopping.item.a_c6">Frozen berries</span><div class="qty" data-i18n="shopping.qty.a_c6">~1.0–2.0 kg</div></label></div>
+            <div class="item"><input id="a_c7" type="checkbox"><label for="a_c7"><span data-i18n="shopping.item.a_c7">Honey / jam</span><div class="qty" data-i18n="shopping.qty.a_c7">1 jar</div></label></div>
           </div>
 
           <div class="checklist" role="listitem">
-            <h4>Fats / extras</h4>
-            <div class="item"><input id="a_f1" type="checkbox"><label for="a_f1">Olive oil<div class="qty">1 bottle</div></label></div>
-            <div class="item"><input id="a_f2" type="checkbox"><label for="a_f2">Peanut butter<div class="qty">1 jar</div></label></div>
-            <div class="item"><input id="a_f3" type="checkbox"><label for="a_f3">Nuts (optional)<div class="qty">200–400 g</div></label></div>
+            <h4 data-i18n="shopping.cat.fats">Fats / extras</h4>
+            <div class="item"><input id="a_f1" type="checkbox"><label for="a_f1"><span data-i18n="shopping.item.a_f1">Olive oil</span><div class="qty" data-i18n="shopping.qty.a_f1">1 bottle</div></label></div>
+            <div class="item"><input id="a_f2" type="checkbox"><label for="a_f2"><span data-i18n="shopping.item.a_f2">Peanut butter</span><div class="qty" data-i18n="shopping.qty.a_f2">1 jar</div></label></div>
+            <div class="item"><input id="a_f3" type="checkbox"><label for="a_f3"><span data-i18n="shopping.item.a_f3">Nuts (optional)</span><div class="qty" data-i18n="shopping.qty.a_f3">200–400 g</div></label></div>
           </div>
 
           <div class="checklist" role="listitem">
-            <h4>Vegetables</h4>
-            <div class="item"><input id="a_v1" type="checkbox"><label for="a_v1">Frozen vegetable mix<div class="qty">~1.5–2.5 kg</div></label></div>
-            <div class="item"><input id="a_v2" type="checkbox"><label for="a_v2">Fresh salad + tomatoes/cucumber<div class="qty">Aim ~250–300 g/day</div></label></div>
-            <div class="item"><input id="a_v3" type="checkbox"><label for="a_v3">Optional: onions/garlic/spices<div class="qty">for easy flavor</div></label></div>
+            <h4 data-i18n="shopping.cat.veg">Vegetables</h4>
+            <div class="item"><input id="a_v1" type="checkbox"><label for="a_v1"><span data-i18n="shopping.item.a_v1">Frozen vegetable mix</span><div class="qty" data-i18n="shopping.qty.a_v1">~1.5–2.5 kg</div></label></div>
+            <div class="item"><input id="a_v2" type="checkbox"><label for="a_v2"><span data-i18n="shopping.item.a_v2">Fresh salad + tomatoes/cucumber</span><div class="qty" data-i18n="shopping.qty.a_v2">Aim ~250–300 g/day</div></label></div>
+            <div class="item"><input id="a_v3" type="checkbox"><label for="a_v3"><span data-i18n="shopping.item.a_v3">Optional: onions/garlic/spices</span><div class="qty" data-i18n="shopping.qty.a_v3">for easy flavor</div></label></div>
           </div>
         </div>
 
         <div class="card" style="margin-top:12px; box-shadow:none">
           <div class="inner">
-            <h3 style="margin:0 0 6px">Cheaper swaps (Aldi/Lidl-friendly)</h3>
+            <h3 style="margin:0 0 6px" data-i18n="shopping.swaps.title">Cheaper swaps (Aldi/Lidl-friendly)</h3>
             <ul class="ruleList">
-              <li>Chicken ↔ turkey ↔ lean (pork-free) mince</li>
-              <li>Rice ↔ potatoes ↔ oats</li>
-              <li>Fresh veg ↔ frozen veg (often cheaper + easier)</li>
+              <li data-i18n="shopping.swaps.1">Chicken ↔ turkey ↔ lean (pork-free) mince</li>
+              <li data-i18n="shopping.swaps.2">Rice ↔ potatoes ↔ oats</li>
+              <li data-i18n="shopping.swaps.3">Fresh veg ↔ frozen veg (often cheaper + easier)</li>
             </ul>
           </div>
         </div>
@@ -1277,166 +810,31 @@
 
     <section id="rules" class="card" aria-labelledby="rulesTitle">
       <div class="inner">
-        <h2 id="rulesTitle">Weekly adjustment rules (the key to gaining)</h2>
+        <h2 id="rulesTitle" data-i18n="rules.title">Weekly adjustment rules (the key to gaining)</h2>
         <div class="profileOnly active" data-profile="brajan">
           <ul class="ruleList">
-            <li><strong>Weigh daily</strong> (morning, after bathroom). Use the <strong>7-day average</strong>.</li>
-            <li>Target gain: <strong>0.25–0.5 kg/week</strong>.</li>
-            <li>If your 7-day average is <strong>flat after 14 days</strong>: add <strong>+150–200 kcal/day</strong> (best: +50 g dry rice OR +60–80 g oats OR +300–400 g potatoes).</li>
-            <li>If you gain <strong>&gt;0.6 kg/week</strong> for 2 weeks: remove <strong>~150–250 kcal/day</strong> (usually from fats: less oil/peanut butter/nuts).</li>
-            <li>If digestion feels off: go <strong>laktosefrei</strong> only for dairy and reduce bread/pasta for a week (use rice/potatoes/oats instead).</li>
+            <li data-i18n-html="rules.b.1"><strong>Weigh daily</strong> (morning, after bathroom). Use the <strong>7-day average</strong>.</li>
+            <li data-i18n-html="rules.b.2">Target gain: <strong>0.25–0.5 kg/week</strong>.</li>
+            <li data-i18n-html="rules.b.3">If your 7-day average is <strong>flat after 14 days</strong>: add <strong>+150–200 kcal/day</strong> (best: +50 g dry rice OR +60–80 g oats OR +300–400 g potatoes).</li>
+            <li data-i18n-html="rules.b.4">If you gain <strong>&gt;0.6 kg/week</strong> for 2 weeks: remove <strong>~150–250 kcal/day</strong> (usually from fats: less oil/peanut butter/nuts).</li>
+            <li data-i18n-html="rules.b.5">If digestion feels off: go <strong>laktosefrei</strong> only for dairy and reduce bread/pasta for a week (use rice/potatoes/oats instead).</li>
           </ul>
         </div>
         <div class="profileOnly" data-profile="abigail">
           <ul class="ruleList">
-            <li><strong>Weigh daily</strong> (morning, after bathroom). Use the <strong>7-day average</strong>.</li>
-            <li>Target gain: <strong>0.2–0.4 kg/week</strong>.</li>
-            <li>If your 7-day average is <strong>flat after 14 days</strong>: add <strong>+120–150 kcal/day</strong> (best: +30 g dry rice OR +40–60 g oats OR +200–300 g potatoes).</li>
-            <li>If you gain <strong>&gt;0.5 kg/week</strong> for 2 weeks: remove <strong>~120–150 kcal/day</strong> (usually from fats).</li>
-            <li>Lowest effort calorie boost: add <strong>10 g olive oil</strong> to meals or an extra snack.</li>
+            <li data-i18n-html="rules.a.1"><strong>Weigh daily</strong> (morning, after bathroom). Use the <strong>7-day average</strong>.</li>
+            <li data-i18n-html="rules.a.2">Target gain: <strong>0.2–0.4 kg/week</strong>.</li>
+            <li data-i18n-html="rules.a.3">If your 7-day average is <strong>flat after 14 days</strong>: add <strong>+120–150 kcal/day</strong> (best: +30 g dry rice OR +40–60 g oats OR +200–300 g potatoes).</li>
+            <li data-i18n-html="rules.a.4">If you gain <strong>&gt;0.5 kg/week</strong> for 2 weeks: remove <strong>~120–150 kcal/day</strong> (usually from fats).</li>
+            <li data-i18n-html="rules.a.5">Lowest effort calorie boost: add <strong>10 g olive oil</strong> to meals or an extra snack.</li>
           </ul>
         </div>
         <p class="small" style="margin:12px 0 0">
-          This is a template. Your real “maintenance” can vary—weekly trend adjustment is what makes it work.
+          <span data-i18n="rules.footer">This is a template. Your real “maintenance” can vary—weekly trend adjustment is what makes it work.</span>
         </p>
       </div>
     </section>
 
-    <footer class="container">
-      <div style="height:12px"></div>
-      <div class="small">
-        Built as a single file for quick use. If you want, I can also create a version with separate folders (`css/`, `js/`, `images/`) later.
-      </div>
-    </footer>
-  </main>
-
-  <script>
-    (function () {
-      const profileKey = "foodPlanProfile.v1";
-      const checklistKeyPrefix = "foodPlanChecklist.v1";
-      const allBoxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
-      const resetBtn = document.getElementById("resetList");
-      const expandBtn = document.getElementById("expandAll");
-      const btnBrajan = document.getElementById("profileBrajan");
-      const btnAbigail = document.getElementById("profileAbigail");
-      const pageTitle = document.getElementById("pageTitle");
-      const pageSubtitle = document.getElementById("pageSubtitle");
-
-      function getActiveProfile() {
-        try {
-          const p = localStorage.getItem(profileKey);
-          if (p === "abigail" || p === "brajan") return p;
-        } catch (_) {}
-        return "brajan";
-      }
-
-      function setActiveProfile(profile) {
-        try { localStorage.setItem(profileKey, profile); } catch (_) {}
-
-        const sections = Array.from(document.querySelectorAll(".profileOnly"));
-        sections.forEach(s => {
-          const p = s.getAttribute("data-profile");
-          s.classList.toggle("active", p === profile);
-        });
-
-        if (btnBrajan) btnBrajan.setAttribute("aria-pressed", profile === "brajan" ? "true" : "false");
-        if (btnAbigail) btnAbigail.setAttribute("aria-pressed", profile === "abigail" ? "true" : "false");
-
-        if (pageTitle) pageTitle.textContent = profile === "abigail" ? "Meal Plan — Abigail" : "Meal Plan — Brajan";
-        if (pageSubtitle) pageSubtitle.textContent = profile === "abigail"
-          ? "~2300 kcal/day • ~110–130 g protein/day • gain weight"
-          : "~3700 kcal/day • high-protein • moderate lactose/gluten";
-
-        // Expand/collapse button should affect only visible days.
-        updateExpandButtonLabel();
-
-        // Load checklist for this profile.
-        loadState(profile);
-      }
-
-      function getChecklistStorageKey(profile) { return `${checklistKeyPrefix}.${profile}`; }
-
-      function getVisibleDayDetails() {
-        const profile = getActiveProfile();
-        const container = document.querySelector(`.days.profileOnly[data-profile="${profile}"]`);
-        if (!container) return [];
-        return Array.from(container.querySelectorAll("details.day"));
-      }
-
-      function getVisibleChecklistBoxes(profile) {
-        const container = document.querySelector(`.shopGrid.profileOnly[data-profile="${profile}"]`);
-        if (!container) return [];
-        return Array.from(container.querySelectorAll('input[type="checkbox"]'));
-      }
-
-      function applyDoneClass(box) {
-        const row = box.closest(".item");
-        if (!row) return;
-        row.classList.toggle("done", box.checked);
-      }
-
-      function loadState(profile) {
-        try {
-          const raw = localStorage.getItem(getChecklistStorageKey(profile));
-          const state = raw ? JSON.parse(raw) : {};
-          const visible = getVisibleChecklistBoxes(profile);
-          visible.forEach(b => {
-            b.checked = !!state[b.id];
-            applyDoneClass(b);
-          });
-        } catch (_) {}
-      }
-
-      function saveState(profile) {
-        try {
-          const state = {};
-          const visible = getVisibleChecklistBoxes(profile);
-          visible.forEach(b => state[b.id] = !!b.checked);
-          localStorage.setItem(getChecklistStorageKey(profile), JSON.stringify(state));
-        } catch (_) {}
-      }
-
-      allBoxes.forEach(b => {
-        b.addEventListener("change", () => {
-          applyDoneClass(b);
-          const container = b.closest(".shopGrid.profileOnly");
-          const profile = container?.getAttribute("data-profile") || getActiveProfile();
-          saveState(profile);
-        });
-      });
-
-      resetBtn?.addEventListener("click", () => {
-        const profile = getActiveProfile();
-        const visible = getVisibleChecklistBoxes(profile);
-        visible.forEach(b => {
-          b.checked = false;
-          applyDoneClass(b);
-        });
-        try { localStorage.removeItem(getChecklistStorageKey(profile)); } catch (_) {}
-      });
-
-      function updateExpandButtonLabel() {
-        const visible = getVisibleDayDetails();
-        if (!expandBtn || visible.length === 0) return;
-        const allOpen = visible.every(d => d.open);
-        expandBtn.textContent = allOpen ? "Collapse all days" : "Expand all days";
-      }
-
-      expandBtn?.addEventListener("click", () => {
-        const visible = getVisibleDayDetails();
-        if (visible.length === 0) return;
-        const allOpen = visible.every(d => d.open);
-        visible.forEach(d => d.open = !allOpen);
-        updateExpandButtonLabel();
-      });
-
-      // Profile buttons
-      btnBrajan?.addEventListener("click", () => setActiveProfile("brajan"));
-      btnAbigail?.addEventListener("click", () => setActiveProfile("abigail"));
-
-      // Initial
-      setActiveProfile(getActiveProfile());
-    })();
-  </script>
+  <script src="js/app.js" defer></script>
 </body>
 </html>
