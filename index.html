@@ -1,0 +1,1442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Meal Plan (Brajan & Abigail) — Germany</title>
+  <meta name="description" content="A mobile-friendly 7-day meal rotation with profile switch (Brajan/Abigail), shopping list and weekly adjustment rules. Built for Germany supermarkets." />
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --card: #121824;
+      --card2: #0f1520;
+      --text: #eaf0ff;
+      --muted: #a9b6d1;
+      --accent: #6ea8fe;
+      --accent2: #63e6be;
+      --warn: #ffd43b;
+      --danger: #ff6b6b;
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --radius2: 12px;
+      --max: 1080px;
+      --pad: 16px;
+      --tap: 44px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root{
+        --bg: #f6f8ff;
+        --card: #ffffff;
+        --card2: #f2f5ff;
+        --text: #0e1320;
+        --muted: #4a5876;
+        --border: rgba(14,19,32,.12);
+        --shadow: 0 12px 30px rgba(18, 24, 36, .12);
+      }
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height: 100%; }
+    body{
+      margin: 0;
+      font-family: var(--font);
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(110,168,254,.22), transparent 55%),
+                  radial-gradient(900px 600px at 80% 0%, rgba(99,230,190,.18), transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    a{ color: inherit; }
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    /* Header */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: color-mix(in oklab, var(--bg) 86%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar{
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+    .brand{
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+    .brand h1{
+      font-size: 16px;
+      margin: 0;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .brand p{
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    nav{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card) 70%, transparent);
+      text-decoration: none;
+      font-size: 13px;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+    }
+    .pill:focus-visible{
+      outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent);
+      outline-offset: 2px;
+    }
+    .pill.primary{
+      border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
+      background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 25%, transparent), color-mix(in oklab, var(--accent2) 18%, transparent));
+    }
+
+    /* Profile switch */
+    .profileSwitch{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card2) 84%, transparent);
+    }
+    .profileBtn{
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+      min-width: 92px;
+    }
+    .profileBtn[aria-pressed="true"]{
+      border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
+      background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 24%, transparent), color-mix(in oklab, var(--accent2) 14%, transparent));
+    }
+    .profileBtn:focus-visible{
+      outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent);
+      outline-offset: 2px;
+    }
+
+    /* Sections */
+    main{ padding: 18px 0 56px; }
+    section{ scroll-margin-top: 86px; }
+    .grid{
+      display: grid;
+      gap: 14px;
+    }
+    @media (min-width: 860px){
+      .grid.two{ grid-template-columns: 1.1fr .9fr; align-items: start; }
+      .grid.three{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .card{
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card) 92%, transparent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+    .card .inner{ padding: 16px; }
+    .card h2, .card h3{ margin: 0 0 8px; }
+    .card h2{ font-size: 18px; }
+    .card h3{ font-size: 15px; color: color-mix(in oklab, var(--text) 90%, var(--muted)); }
+    .muted{ color: var(--muted); }
+
+    .hero{
+      display: grid;
+      gap: 14px;
+      padding: 16px;
+      background:
+        radial-gradient(900px 420px at 20% -20%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 55%),
+        radial-gradient(900px 420px at 85% -10%, color-mix(in oklab, var(--accent2) 28%, transparent), transparent 55%),
+        color-mix(in oklab, var(--card2) 95%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .heroTitle{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .heroTitle h2{
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: .2px;
+    }
+    .badgeRow{ display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card) 70%, transparent);
+      font-size: 13px;
+    }
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, transparent);
+    }
+    .dot.green{
+      background: var(--accent2);
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent2) 18%, transparent);
+    }
+    .dot.yellow{
+      background: var(--warn);
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--warn) 18%, transparent);
+    }
+
+    /* Food gallery */
+    .gallery{
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 520px){
+      .gallery{ grid-template-columns: repeat(4, 1fr); }
+    }
+    .thumb{
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card2) 95%, transparent);
+      aspect-ratio: 1/1;
+    }
+    .thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.03);
+    }
+    .thumb span{
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: white;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
+      text-shadow: 0 1px 10px rgba(0,0,0,.55);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    /* Rotation (accordions) */
+    .days{ display: grid; gap: 12px; }
+    details.day{
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card) 92%, transparent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+    summary{
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: var(--tap);
+      user-select: none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .dayTitle{
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+    .dayTitle strong{ font-size: 15px; }
+    .dayTitle span{ font-size: 12px; color: var(--muted); }
+    .chev{
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: color-mix(in oklab, var(--card2) 80%, transparent);
+    }
+    details[open] .chev{ transform: rotate(180deg); }
+    .dayBody{ padding: 0 16px 16px; }
+    .mealGrid{ display: grid; gap: 10px; margin-top: 8px; }
+    @media (min-width: 860px){
+      .mealGrid{ grid-template-columns: 1fr 1fr; }
+    }
+    .meal{
+      border-radius: var(--radius2);
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card2) 92%, transparent);
+      padding: 12px;
+    }
+    .meal h4{
+      margin: 0 0 6px;
+      font-size: 14px;
+      letter-spacing: .15px;
+    }
+    .meal ul{ margin: 0; padding-left: 18px; color: color-mix(in oklab, var(--text) 92%, var(--muted)); }
+    .meal li{ margin: 4px 0; }
+
+    /* Shopping */
+    .shopControls{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn{
+      height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card2) 88%, transparent);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+      min-width: 140px;
+    }
+    .btn.primary{
+      border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
+      background: color-mix(in oklab, var(--accent) 18%, var(--card2));
+    }
+    .btn.danger{
+      border-color: color-mix(in oklab, var(--danger) 55%, var(--border));
+      background: color-mix(in oklab, var(--danger) 14%, var(--card2));
+    }
+    .btn:focus-visible{
+      outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent);
+      outline-offset: 2px;
+    }
+    .shopGrid{ display: grid; gap: 12px; margin-top: 12px; }
+    @media (min-width: 860px){
+      .shopGrid{ grid-template-columns: 1fr 1fr; }
+    }
+    .checklist{
+      padding: 12px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card2) 92%, transparent);
+    }
+    .checklist h4{
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: color-mix(in oklab, var(--text) 92%, var(--muted));
+      letter-spacing: .2px;
+    }
+    .item{
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 8px 6px;
+      border-radius: 10px;
+    }
+    .item:hover{ background: color-mix(in oklab, var(--card) 40%, transparent); }
+    input[type="checkbox"]{
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+    }
+    .item label{
+      cursor: pointer;
+      line-height: 1.3;
+    }
+    .qty{ color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .done label{
+      opacity: .75;
+      text-decoration: line-through;
+    }
+
+    /* Footer */
+    footer{
+      padding: 18px 0 28px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .kpi{
+      display: grid;
+      gap: 10px;
+    }
+    @media (min-width: 860px){
+      .kpi{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .kpi .tile{
+      border-radius: var(--radius2);
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card2) 92%, transparent);
+      padding: 12px;
+    }
+    .tile strong{ display:block; font-size: 14px; }
+    .tile span{ color: var(--muted); font-size: 12px; }
+    .ruleList{ margin: 10px 0 0; padding-left: 18px; }
+    .ruleList li{ margin: 7px 0; }
+    .small{ font-size: 12px; color: var(--muted); }
+
+    /* Profile conditional rendering */
+    .profileOnly{ display:none; }
+    .profileOnly.active{ display:block; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <h1 id="pageTitle">Meal Plan (Germany)</h1>
+          <p id="pageSubtitle">Choose a profile to see targets and portions.</p>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap">
+          <div class="profileSwitch" role="group" aria-label="Profile selector">
+            <button class="profileBtn" type="button" id="profileBrajan" aria-pressed="true" data-profile="brajan">Brajan</button>
+            <button class="profileBtn" type="button" id="profileAbigail" aria-pressed="false" data-profile="abigail">Abigail</button>
+          </div>
+          <nav aria-label="Page navigation">
+            <a class="pill primary" href="#goal">Goal</a>
+            <a class="pill" href="#rotation">Rotation</a>
+            <a class="pill" href="#shopping">Shopping</a>
+            <a class="pill" href="#rules">Rules</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="goal" class="card" aria-labelledby="goalTitle">
+      <div class="hero">
+        <div class="heroTitle">
+          <div class="profileOnly active" data-profile="brajan">
+            <h2 id="goalTitle">Brajan: ~3700 kcal/day (lean bulk)</h2>
+            <div class="badgeRow" aria-label="Targets">
+              <div class="badge"><span class="dot"></span><strong>Calories</strong>&nbsp;~3700/day</div>
+              <div class="badge"><span class="dot green"></span><strong>Protein</strong>&nbsp;~190–230 g/day</div>
+              <div class="badge"><span class="dot yellow"></span><strong>Comfort</strong>&nbsp;moderate lactose/gluten</div>
+            </div>
+          </div>
+          <div class="profileOnly" data-profile="abigail">
+            <h2 id="goalTitleAbigail">Abigail: ~2300 kcal/day (gain weight)</h2>
+            <div class="badgeRow" aria-label="Targets">
+              <div class="badge"><span class="dot"></span><strong>Calories</strong>&nbsp;~2300/day</div>
+              <div class="badge"><span class="dot green"></span><strong>Protein</strong>&nbsp;~110–130 g/day</div>
+              <div class="badge"><span class="dot yellow"></span><strong>Comfort</strong>&nbsp;no restrictions</div>
+            </div>
+          </div>
+        </div>
+        <div class="kpi" role="list">
+          <div class="tile" role="listitem">
+            <strong>Supermarket-friendly</strong>
+            <span>Aldi / Lidl / REWE / Edeka foods</span>
+          </div>
+          <div class="tile" role="listitem">
+            <strong>Mostly easy carbs</strong>
+            <span>Rice, potatoes, oats; bread/pasta only if you tolerate</span>
+          </div>
+          <div class="tile" role="listitem">
+            <strong>Mostly lactose-free</strong>
+            <span>Choose “laktosefrei” milk, Skyr/Quark, yogurt</span>
+          </div>
+        </div>
+      </div>
+      <div class="inner">
+        <p class="muted" style="margin-top:0">
+          Use this page for your daily weigh-ins and weekly adjustments. Your <strong>weight trend</strong> is the main indicator.
+          Body fat/muscle numbers are helpful mainly as <strong>long-term trends</strong>.
+        </p>
+
+        <div class="gallery" aria-label="Food image gallery">
+          <div class="thumb">
+            <img loading="lazy" alt="Oats" src="https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=900&q=70" />
+            <span>Oats</span>
+          </div>
+          <div class="thumb">
+            <img loading="lazy" alt="Chicken" src="https://images.unsplash.com/photo-1604908176997-125f25cc500f?auto=format&fit=crop&w=900&q=70" />
+            <span>Chicken / Turkey</span>
+          </div>
+          <div class="thumb">
+            <img loading="lazy" alt="Rice" src="https://images.unsplash.com/photo-1604909052743-94e4683d975d?auto=format&fit=crop&w=900&q=70" />
+            <span>Rice</span>
+          </div>
+          <div class="thumb">
+            <img loading="lazy" alt="Potatoes" src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=900&q=70" />
+            <span>Potatoes</span>
+          </div>
+          <div class="thumb">
+            <img loading="lazy" alt="Yogurt bowl" src="https://images.unsplash.com/photo-1514995669114-6081e934b693?auto=format&fit=crop&w=900&q=70" />
+            <span>Skyr / Quark</span>
+          </div>
+          <div class="thumb">
+            <img loading="lazy" alt="Eggs" src="https://images.unsplash.com/photo-1518569656558-1f25e69d93d4?auto=format&fit=crop&w=900&q=70" />
+            <span>Eggs</span>
+          </div>
+          <div class="thumb">
+            <img loading="lazy" alt="Salmon" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=70" />
+            <span>Salmon (optional)</span>
+          </div>
+          <div class="thumb">
+            <img loading="lazy" alt="Berries" src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=900&q=70" />
+            <span>Frozen berries</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div style="height:14px"></div>
+
+    <section id="rotation" aria-labelledby="rotationTitle">
+      <div class="card">
+        <div class="inner">
+          <h2 id="rotationTitle">7-day rotation (tap a day)</h2>
+          <div class="profileOnly active" data-profile="brajan">
+            <p class="muted" style="margin:6px 0 0">
+              Keep lactose/gluten moderate by preferring <strong>rice/potatoes/oats</strong> and choosing <strong>laktosefrei</strong> dairy most days.
+            </p>
+          </div>
+          <div class="profileOnly" data-profile="abigail">
+            <p class="muted" style="margin:6px 0 0">
+              No restrictions. If appetite is low, add calories with easy carbs (rice/potatoes/oats) or a bit more oil/nuts.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="days profileOnly active" data-profile="brajan" role="list">
+        <!-- Day 1 -->
+        <details class="day" open>
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 1 — Chicken + rice</strong>
+              <span>Rough total: 3600–3900 kcal • 200–230 g protein</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 (Breakfast) — Oats bowl</h4>
+                <ul>
+                  <li>Oats 120 g</li>
+                  <li>Lactose-free milk 400 ml (or oat drink)</li>
+                  <li>Banana 1 large</li>
+                  <li>Peanut butter 30 g</li>
+                  <li>Optional: whey isolate 30 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 (Lunch) — Chicken rice bowl</h4>
+                <ul>
+                  <li>Chicken breast 250 g (raw)</li>
+                  <li>Rice 150 g (dry)</li>
+                  <li>Frozen veg 300 g</li>
+                  <li>Olive oil 15 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 (Snack) — High protein</h4>
+                <ul>
+                  <li>Lactose-free Skyr/Quark 500 g</li>
+                  <li>Frozen berries 200 g</li>
+                  <li>Honey/jam 25 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 (Dinner) — Mince + potatoes</h4>
+                <ul>
+                  <li>Lean mince (beef or turkey) 250 g (raw)</li>
+                  <li>Potatoes 700 g</li>
+                  <li>Salad/veg 300 g</li>
+                  <li>Olive oil 10 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 5 (Optional) — If you’re short on calories</h4>
+                <ul>
+                  <li>Eggs 4 + rice cakes 4–6</li>
+                  <li>OR lactose-free milk 500 ml + banana</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Day 2 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 2 — Turkey + flexible carbs</strong>
+              <span>Lower lactose; keep gluten moderate</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Eggs + oats</h4>
+                <ul>
+                  <li>Eggs 4</li>
+                  <li>Oats 80 g (porridge with water/oat drink)</li>
+                  <li>Banana 1</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Turkey bowl</h4>
+                <ul>
+                  <li>Turkey breast 250 g (raw)</li>
+                  <li>Rice 150 g (dry)</li>
+                  <li>Veg 300 g</li>
+                  <li>Olive oil 15 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Busy snack</h4>
+                <ul>
+                  <li>Protein shake x2 (whey isolate 30 g each)</li>
+                  <li>Fruit 2–3 pieces</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Pasta or rice swap</h4>
+                <ul>
+                  <li>Pasta 150 g (dry) + tomato passata 300–500 g</li>
+                  <li>Protein: mince or tuna 200–250 g</li>
+                  <li>Olive oil 10–15 g</li>
+                  <li><span class="muted">If gluten bothers you: replace pasta with rice 150 g (dry)</span></li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 5 — Dairy (lactose-free)</h4>
+                <ul>
+                  <li>Lactose-free Skyr 400–500 g</li>
+                  <li>Berries 200 g</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Day 3 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 3 — Salmon day (easy calories)</strong>
+              <span>Good fats; still high protein</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Oats bowl</h4>
+                <ul>
+                  <li>Same as Day 1</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Salmon + potatoes</h4>
+                <ul>
+                  <li>Salmon 250 g</li>
+                  <li>Potatoes 800 g</li>
+                  <li>Veg 300 g</li>
+                  <li>Olive oil 10 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Skyr/Quark bowl</h4>
+                <ul>
+                  <li>Lactose-free Skyr/Quark 500 g + berries 200 g + honey 25 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Smaller chicken rice</h4>
+                <ul>
+                  <li>Chicken 200 g + rice 120 g (dry) + veg 300 g + olive oil 10 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 5 — Extra carbs/fats</h4>
+                <ul>
+                  <li>Rice cakes 6 + peanut butter 30 g</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Day 4 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 4 — Very simple bowls</strong>
+              <span>Big rice bowl + potatoes meal</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Eggs + rice cakes</h4>
+                <ul>
+                  <li>Eggs 4</li>
+                  <li>Rice cakes 6</li>
+                  <li>Fruit 1–2</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Mince rice bowl</h4>
+                <ul>
+                  <li>Lean mince 250 g (raw)</li>
+                  <li>Rice 160 g (dry)</li>
+                  <li>Veg 300 g</li>
+                  <li>Olive oil 15 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Skyr/Quark bowl</h4>
+                <ul>
+                  <li>Lactose-free Skyr/Quark 500 g + berries 200 g + honey 25 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Chicken + potatoes</h4>
+                <ul>
+                  <li>Chicken 250 g (raw)</li>
+                  <li>Potatoes 700 g</li>
+                  <li>Salad/veg 300 g</li>
+                  <li>Olive oil 10 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 5 (Optional) — Protein top-up</h4>
+                <ul>
+                  <li>Protein shake 30 g if you’re under ~200 g protein that day</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Day 5 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 5 — No-cook / busy day</strong>
+              <span>Microwave rice + ready proteins</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Overnight oats</h4>
+                <ul>
+                  <li>Oats 120 g</li>
+                  <li>Lactose-free milk 400 ml</li>
+                  <li>Banana 1</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Ready rice + protein</h4>
+                <ul>
+                  <li>Microwave rice x2 packs (or ~300 g cooked)</li>
+                  <li>Cooked chicken/turkey 250–300 g</li>
+                  <li>Olive oil 15 g</li>
+                  <li>Bag salad</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Skyr/Quark bowl</h4>
+                <ul>
+                  <li>Lactose-free Skyr/Quark 500 g + berries 200 g + honey 25 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Bread limited (or potato swap)</h4>
+                <ul>
+                  <li>2–3 sandwiches with turkey + cheese (lactose-free if needed)</li>
+                  <li><span class="muted">If gluten bothers you: replace with potatoes 600–800 g</span></li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 5 — Easy extras</h4>
+                <ul>
+                  <li>Nuts 40 g (if tolerated) + fruit</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Day 6 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 6 — Higher carb training day</strong>
+              <span>Push carbs to support performance</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Oats bowl + extra carbs</h4>
+                <ul>
+                  <li>Day 1 oats bowl</li>
+                  <li>+ extra banana OR +2 rice cakes</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Bigger chicken rice</h4>
+                <ul>
+                  <li>Chicken 300 g (raw)</li>
+                  <li>Rice 170 g (dry)</li>
+                  <li>Veg 300 g</li>
+                  <li>Olive oil 15 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Skyr/Quark bowl</h4>
+                <ul>
+                  <li>Lactose-free Skyr/Quark 500 g + berries 200 g + honey 25 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Mince + potatoes</h4>
+                <ul>
+                  <li>Lean mince 250 g</li>
+                  <li>Potatoes 700–800 g</li>
+                  <li>Veg/salad 300 g</li>
+                  <li>Olive oil 10–15 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 5 (Optional)</h4>
+                <ul>
+                  <li>Protein shake 30 g if needed</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Day 7 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 7 — Pick your favorites</strong>
+              <span>Choose 4 meals you liked and hit the targets</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Rule</h4>
+                <ul>
+                  <li>Pick meals from Days 1–6</li>
+                  <li>Protein: at least ~200 g/day</li>
+                  <li>Carbs: enough to reach ~3700 kcal</li>
+                  <li>Prefer lactose-free dairy + rice/potatoes/oats</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Simple add-ons (if you’re low on calories)</h4>
+                <ul>
+                  <li>+50 g dry rice</li>
+                  <li>+60–80 g oats</li>
+                  <li>+300–400 g potatoes</li>
+                  <li>+15 g olive oil (if you tolerate fats well)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="days profileOnly" data-profile="abigail" role="list">
+        <!-- Abigail Day 1 -->
+        <details class="day" open>
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 1 — Chicken + rice (scaled)</strong>
+              <span>Rough total: ~2200–2500 kcal • ~110–140 g protein</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 (Breakfast) — Oats bowl</h4>
+                <ul>
+                  <li>Oats 70 g</li>
+                  <li>Milk 250 ml (any)</li>
+                  <li>Banana 1</li>
+                  <li>Peanut butter 15 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 (Lunch) — Chicken rice bowl</h4>
+                <ul>
+                  <li>Chicken breast 160–180 g (raw)</li>
+                  <li>Rice 90 g (dry)</li>
+                  <li>Veg 250–300 g</li>
+                  <li>Olive oil 10 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 (Snack) — Skyr/Quark bowl</h4>
+                <ul>
+                  <li>Skyr/Quark 300 g</li>
+                  <li>Frozen berries 150–200 g</li>
+                  <li>Honey/jam 15 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 (Dinner) — Mince + potatoes</h4>
+                <ul>
+                  <li>Lean mince (beef or turkey) 150–180 g (raw)</li>
+                  <li>Potatoes 500–600 g</li>
+                  <li>Salad/veg 250–300 g</li>
+                  <li>Olive oil 10 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 5 (Optional) — If you’re short on calories</h4>
+                <ul>
+                  <li>Greek yogurt 200 g + fruit</li>
+                  <li>OR 2 eggs + 2–3 rice cakes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Abigail Day 2 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 2 — Turkey + flexible carbs</strong>
+              <span>Easy day; keep it tasty and consistent</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Eggs + oats</h4>
+                <ul>
+                  <li>Eggs 2–3</li>
+                  <li>Oats 60–70 g</li>
+                  <li>Fruit 1</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Turkey bowl</h4>
+                <ul>
+                  <li>Turkey breast 160–200 g (raw)</li>
+                  <li>Rice 90–100 g (dry)</li>
+                  <li>Veg 250–300 g</li>
+                  <li>Olive oil 10 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Snack</h4>
+                <ul>
+                  <li>Skyr/Quark 250–300 g</li>
+                  <li>1–2 fruits</li>
+                  <li>Optional: 20–30 g nuts</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Pasta (or rice/potato swap)</h4>
+                <ul>
+                  <li>Pasta 90–110 g (dry) + tomato passata 300 g</li>
+                  <li>Protein: mince or tuna 150–200 g</li>
+                  <li>Olive oil 10 g</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Abigail Day 3 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 3 — Salmon day (optional)</strong>
+              <span>Easy calories from fats</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Oats bowl</h4>
+                <ul><li>Oats 70 g + milk 250 ml + banana 1 + peanut butter 15 g</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Salmon + potatoes</h4>
+                <ul>
+                  <li>Salmon 150–200 g</li>
+                  <li>Potatoes 600 g</li>
+                  <li>Veg 300 g</li>
+                  <li>Olive oil 10 g</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Skyr/Quark bowl</h4>
+                <ul><li>Skyr/Quark 300 g + berries 200 g + honey 15 g</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Smaller chicken rice</h4>
+                <ul><li>Chicken 140–160 g + rice 75–90 g (dry) + veg + olive oil 10 g</li></ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Abigail Day 4 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 4 — Simple bowls</strong>
+              <span>Repeat what’s easiest</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Eggs + rice cakes</h4>
+                <ul><li>Eggs 2–3 + rice cakes 3–4 + fruit</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Mince rice bowl</h4>
+                <ul><li>Lean mince 160–180 g + rice 100 g (dry) + veg + olive oil 10 g</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Yogurt/Skyr</h4>
+                <ul><li>Skyr/Quark 250–300 g + berries 200 g</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Chicken + potatoes</h4>
+                <ul><li>Chicken 160–200 g + potatoes 600 g + salad/veg + olive oil 10 g</li></ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Abigail Day 5 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 5 — No-cook / busy</strong>
+              <span>Microwave rice + ready proteins</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Overnight oats</h4>
+                <ul><li>Oats 70 g + milk 250 ml + fruit</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Ready rice + protein</h4>
+                <ul><li>Microwave rice x1 pack + cooked chicken/turkey 150–200 g + olive oil 10 g + salad</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Skyr/Quark</h4>
+                <ul><li>Skyr/Quark 300 g + berries + honey</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Sandwiches or potatoes</h4>
+                <ul><li>1–2 sandwiches OR potatoes 500–700 g + protein</li></ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Abigail Day 6 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 6 — Training day (2x/week)</strong>
+              <span>Add carbs around workout</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Meal 1 — Oats + extra carbs</h4>
+                <ul><li>Oats 70 g + milk 250 ml + banana 1 + add 2 rice cakes if hungry</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 2 — Chicken rice</h4>
+                <ul><li>Chicken 180–220 g + rice 100 g (dry) + veg + olive oil 10 g</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 3 — Skyr/Quark</h4>
+                <ul><li>Skyr/Quark 250–300 g + berries</li></ul>
+              </div>
+              <div class="meal">
+                <h4>Meal 4 — Mince + potatoes</h4>
+                <ul><li>Lean mince 160–200 g + potatoes 600–700 g + veg + olive oil 10 g</li></ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Abigail Day 7 -->
+        <details class="day">
+          <summary>
+            <div class="dayTitle">
+              <strong>Day 7 — Favorites day</strong>
+              <span>Repeat what she likes most</span>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+          <div class="dayBody">
+            <div class="mealGrid">
+              <div class="meal">
+                <h4>Rule</h4>
+                <ul>
+                  <li>Pick 3–4 meals from Days 1–6</li>
+                  <li>Protein: aim ~110–130 g/day</li>
+                  <li>Calories: ~2300/day (add a snack if weight isn’t moving)</li>
+                </ul>
+              </div>
+              <div class="meal">
+                <h4>Simple add-ons</h4>
+                <ul>
+                  <li>+30 g dry rice OR +40–60 g oats</li>
+                  <li>+200–300 g potatoes</li>
+                  <li>+10 g olive oil OR +20–30 g nuts</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <div style="height:14px"></div>
+
+    <section id="shopping" class="card" aria-labelledby="shoppingTitle">
+      <div class="inner">
+        <div class="shopControls">
+          <div>
+            <h2 id="shoppingTitle" style="margin:0 0 4px">Shopping list (1 week)</h2>
+            <div class="small">Tip: the checklist saves automatically on this device (separately per profile).</div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
+            <button class="btn danger" id="resetList" type="button">Reset checklist</button>
+            <button class="btn primary" id="expandAll" type="button">Expand all days</button>
+          </div>
+        </div>
+
+        <div class="shopGrid profileOnly active" data-profile="brajan" role="list">
+          <div class="checklist" role="listitem">
+            <h4>Protein</h4>
+            <div class="item"><input id="b_p1" type="checkbox"><label for="b_p1">Chicken breast / turkey<div class="qty">~2.0–2.5 kg raw</div></label></div>
+            <div class="item"><input id="b_p2" type="checkbox"><label for="b_p2">Lean mince (beef or turkey)<div class="qty">~1.2–1.5 kg</div></label></div>
+            <div class="item"><input id="b_p3" type="checkbox"><label for="b_p3">Salmon (optional but recommended)<div class="qty">~0.5–0.7 kg</div></label></div>
+            <div class="item"><input id="b_p4" type="checkbox"><label for="b_p4">Eggs<div class="qty">24–30</div></label></div>
+            <div class="item"><input id="b_p5" type="checkbox"><label for="b_p5">Skyr/Quark (laktosefrei)<div class="qty">~3.5–5.0 kg total</div></label></div>
+            <div class="item"><input id="b_p6" type="checkbox"><label for="b_p6">Protein powder (whey isolate / lactose-free) (optional)<div class="qty">0–1 shakes/day</div></label></div>
+          </div>
+
+          <div class="checklist" role="listitem">
+            <h4>Carbs</h4>
+            <div class="item"><input id="b_c1" type="checkbox"><label for="b_c1">Oats (Haferflocken)<div class="qty">~1.0–1.5 kg</div></label></div>
+            <div class="item"><input id="b_c2" type="checkbox"><label for="b_c2">Rice (dry) / microwave rice<div class="qty">~1.5–2.0 kg dry (or rice packs)</div></label></div>
+            <div class="item"><input id="b_c3" type="checkbox"><label for="b_c3">Potatoes<div class="qty">~5–7 kg</div></label></div>
+            <div class="item"><input id="b_c4" type="checkbox"><label for="b_c4">Rice cakes<div class="qty">3–5 packs</div></label></div>
+            <div class="item"><input id="b_c5" type="checkbox"><label for="b_c5">Bananas<div class="qty">14–18</div></label></div>
+            <div class="item"><input id="b_c6" type="checkbox"><label for="b_c6">Frozen berries<div class="qty">~1.5–2.5 kg</div></label></div>
+            <div class="item"><input id="b_c7" type="checkbox"><label for="b_c7">Honey / jam<div class="qty">1 jar</div></label></div>
+          </div>
+
+          <div class="checklist" role="listitem">
+            <h4>Fats / extras</h4>
+            <div class="item"><input id="b_f1" type="checkbox"><label for="b_f1">Olive oil<div class="qty">1 bottle</div></label></div>
+            <div class="item"><input id="b_f2" type="checkbox"><label for="b_f2">Peanut butter<div class="qty">1 jar</div></label></div>
+            <div class="item"><input id="b_f3" type="checkbox"><label for="b_f3">Nuts (if tolerated)<div class="qty">300–500 g</div></label></div>
+          </div>
+
+          <div class="checklist" role="listitem">
+            <h4>Vegetables</h4>
+            <div class="item"><input id="b_v1" type="checkbox"><label for="b_v1">Frozen vegetable mix<div class="qty">~2–3 kg</div></label></div>
+            <div class="item"><input id="b_v2" type="checkbox"><label for="b_v2">Fresh salad + tomatoes/cucumber<div class="qty">Aim ~300 g/day</div></label></div>
+            <div class="item"><input id="b_v3" type="checkbox"><label for="b_v3">Optional: onions/garlic/spices<div class="qty">for easy flavor</div></label></div>
+          </div>
+        </div>
+
+        <div class="shopGrid profileOnly" data-profile="abigail" role="list">
+          <div class="checklist" role="listitem">
+            <h4>Protein</h4>
+            <div class="item"><input id="a_p1" type="checkbox"><label for="a_p1">Chicken breast / turkey<div class="qty">~1.2–1.6 kg raw</div></label></div>
+            <div class="item"><input id="a_p2" type="checkbox"><label for="a_p2">Lean mince (beef or turkey)<div class="qty">~0.7–1.0 kg</div></label></div>
+            <div class="item"><input id="a_p3" type="checkbox"><label for="a_p3">Salmon (optional)<div class="qty">~0.3–0.5 kg</div></label></div>
+            <div class="item"><input id="a_p4" type="checkbox"><label for="a_p4">Eggs<div class="qty">14–20</div></label></div>
+            <div class="item"><input id="a_p5" type="checkbox"><label for="a_p5">Skyr/Quark / yogurt<div class="qty">~2.0–3.0 kg total</div></label></div>
+            <div class="item"><input id="a_p6" type="checkbox"><label for="a_p6">Protein powder (optional)<div class="qty">only if needed</div></label></div>
+          </div>
+
+          <div class="checklist" role="listitem">
+            <h4>Carbs</h4>
+            <div class="item"><input id="a_c1" type="checkbox"><label for="a_c1">Oats (Haferflocken)<div class="qty">~0.7–1.0 kg</div></label></div>
+            <div class="item"><input id="a_c2" type="checkbox"><label for="a_c2">Rice (dry) / microwave rice<div class="qty">~0.9–1.3 kg dry (or rice packs)</div></label></div>
+            <div class="item"><input id="a_c3" type="checkbox"><label for="a_c3">Potatoes<div class="qty">~3–5 kg</div></label></div>
+            <div class="item"><input id="a_c4" type="checkbox"><label for="a_c4">Rice cakes<div class="qty">2–3 packs</div></label></div>
+            <div class="item"><input id="a_c5" type="checkbox"><label for="a_c5">Bananas<div class="qty">10–14</div></label></div>
+            <div class="item"><input id="a_c6" type="checkbox"><label for="a_c6">Frozen berries<div class="qty">~1.0–2.0 kg</div></label></div>
+            <div class="item"><input id="a_c7" type="checkbox"><label for="a_c7">Honey / jam<div class="qty">1 jar</div></label></div>
+          </div>
+
+          <div class="checklist" role="listitem">
+            <h4>Fats / extras</h4>
+            <div class="item"><input id="a_f1" type="checkbox"><label for="a_f1">Olive oil<div class="qty">1 bottle</div></label></div>
+            <div class="item"><input id="a_f2" type="checkbox"><label for="a_f2">Peanut butter<div class="qty">1 jar</div></label></div>
+            <div class="item"><input id="a_f3" type="checkbox"><label for="a_f3">Nuts (optional)<div class="qty">200–400 g</div></label></div>
+          </div>
+
+          <div class="checklist" role="listitem">
+            <h4>Vegetables</h4>
+            <div class="item"><input id="a_v1" type="checkbox"><label for="a_v1">Frozen vegetable mix<div class="qty">~1.5–2.5 kg</div></label></div>
+            <div class="item"><input id="a_v2" type="checkbox"><label for="a_v2">Fresh salad + tomatoes/cucumber<div class="qty">Aim ~250–300 g/day</div></label></div>
+            <div class="item"><input id="a_v3" type="checkbox"><label for="a_v3">Optional: onions/garlic/spices<div class="qty">for easy flavor</div></label></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px; box-shadow:none">
+          <div class="inner">
+            <h3 style="margin:0 0 6px">Cheaper swaps (Aldi/Lidl-friendly)</h3>
+            <ul class="ruleList">
+              <li>Chicken ↔ turkey ↔ lean (pork-free) mince</li>
+              <li>Rice ↔ potatoes ↔ oats</li>
+              <li>Fresh veg ↔ frozen veg (often cheaper + easier)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div style="height:14px"></div>
+
+    <section id="rules" class="card" aria-labelledby="rulesTitle">
+      <div class="inner">
+        <h2 id="rulesTitle">Weekly adjustment rules (the key to gaining)</h2>
+        <div class="profileOnly active" data-profile="brajan">
+          <ul class="ruleList">
+            <li><strong>Weigh daily</strong> (morning, after bathroom). Use the <strong>7-day average</strong>.</li>
+            <li>Target gain: <strong>0.25–0.5 kg/week</strong>.</li>
+            <li>If your 7-day average is <strong>flat after 14 days</strong>: add <strong>+150–200 kcal/day</strong> (best: +50 g dry rice OR +60–80 g oats OR +300–400 g potatoes).</li>
+            <li>If you gain <strong>&gt;0.6 kg/week</strong> for 2 weeks: remove <strong>~150–250 kcal/day</strong> (usually from fats: less oil/peanut butter/nuts).</li>
+            <li>If digestion feels off: go <strong>laktosefrei</strong> only for dairy and reduce bread/pasta for a week (use rice/potatoes/oats instead).</li>
+          </ul>
+        </div>
+        <div class="profileOnly" data-profile="abigail">
+          <ul class="ruleList">
+            <li><strong>Weigh daily</strong> (morning, after bathroom). Use the <strong>7-day average</strong>.</li>
+            <li>Target gain: <strong>0.2–0.4 kg/week</strong>.</li>
+            <li>If your 7-day average is <strong>flat after 14 days</strong>: add <strong>+120–150 kcal/day</strong> (best: +30 g dry rice OR +40–60 g oats OR +200–300 g potatoes).</li>
+            <li>If you gain <strong>&gt;0.5 kg/week</strong> for 2 weeks: remove <strong>~120–150 kcal/day</strong> (usually from fats).</li>
+            <li>Lowest effort calorie boost: add <strong>10 g olive oil</strong> to meals or an extra snack.</li>
+          </ul>
+        </div>
+        <p class="small" style="margin:12px 0 0">
+          This is a template. Your real “maintenance” can vary—weekly trend adjustment is what makes it work.
+        </p>
+      </div>
+    </section>
+
+    <footer class="container">
+      <div style="height:12px"></div>
+      <div class="small">
+        Built as a single file for quick use. If you want, I can also create a version with separate folders (`css/`, `js/`, `images/`) later.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const profileKey = "foodPlanProfile.v1";
+      const checklistKeyPrefix = "foodPlanChecklist.v1";
+      const allBoxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+      const resetBtn = document.getElementById("resetList");
+      const expandBtn = document.getElementById("expandAll");
+      const btnBrajan = document.getElementById("profileBrajan");
+      const btnAbigail = document.getElementById("profileAbigail");
+      const pageTitle = document.getElementById("pageTitle");
+      const pageSubtitle = document.getElementById("pageSubtitle");
+
+      function getActiveProfile() {
+        try {
+          const p = localStorage.getItem(profileKey);
+          if (p === "abigail" || p === "brajan") return p;
+        } catch (_) {}
+        return "brajan";
+      }
+
+      function setActiveProfile(profile) {
+        try { localStorage.setItem(profileKey, profile); } catch (_) {}
+
+        const sections = Array.from(document.querySelectorAll(".profileOnly"));
+        sections.forEach(s => {
+          const p = s.getAttribute("data-profile");
+          s.classList.toggle("active", p === profile);
+        });
+
+        if (btnBrajan) btnBrajan.setAttribute("aria-pressed", profile === "brajan" ? "true" : "false");
+        if (btnAbigail) btnAbigail.setAttribute("aria-pressed", profile === "abigail" ? "true" : "false");
+
+        if (pageTitle) pageTitle.textContent = profile === "abigail" ? "Meal Plan — Abigail" : "Meal Plan — Brajan";
+        if (pageSubtitle) pageSubtitle.textContent = profile === "abigail"
+          ? "~2300 kcal/day • ~110–130 g protein/day • gain weight"
+          : "~3700 kcal/day • high-protein • moderate lactose/gluten";
+
+        // Expand/collapse button should affect only visible days.
+        updateExpandButtonLabel();
+
+        // Load checklist for this profile.
+        loadState(profile);
+      }
+
+      function getChecklistStorageKey(profile) { return `${checklistKeyPrefix}.${profile}`; }
+
+      function getVisibleDayDetails() {
+        const profile = getActiveProfile();
+        const container = document.querySelector(`.days.profileOnly[data-profile="${profile}"]`);
+        if (!container) return [];
+        return Array.from(container.querySelectorAll("details.day"));
+      }
+
+      function getVisibleChecklistBoxes(profile) {
+        const container = document.querySelector(`.shopGrid.profileOnly[data-profile="${profile}"]`);
+        if (!container) return [];
+        return Array.from(container.querySelectorAll('input[type="checkbox"]'));
+      }
+
+      function applyDoneClass(box) {
+        const row = box.closest(".item");
+        if (!row) return;
+        row.classList.toggle("done", box.checked);
+      }
+
+      function loadState(profile) {
+        try {
+          const raw = localStorage.getItem(getChecklistStorageKey(profile));
+          const state = raw ? JSON.parse(raw) : {};
+          const visible = getVisibleChecklistBoxes(profile);
+          visible.forEach(b => {
+            b.checked = !!state[b.id];
+            applyDoneClass(b);
+          });
+        } catch (_) {}
+      }
+
+      function saveState(profile) {
+        try {
+          const state = {};
+          const visible = getVisibleChecklistBoxes(profile);
+          visible.forEach(b => state[b.id] = !!b.checked);
+          localStorage.setItem(getChecklistStorageKey(profile), JSON.stringify(state));
+        } catch (_) {}
+      }
+
+      allBoxes.forEach(b => {
+        b.addEventListener("change", () => {
+          applyDoneClass(b);
+          const container = b.closest(".shopGrid.profileOnly");
+          const profile = container?.getAttribute("data-profile") || getActiveProfile();
+          saveState(profile);
+        });
+      });
+
+      resetBtn?.addEventListener("click", () => {
+        const profile = getActiveProfile();
+        const visible = getVisibleChecklistBoxes(profile);
+        visible.forEach(b => {
+          b.checked = false;
+          applyDoneClass(b);
+        });
+        try { localStorage.removeItem(getChecklistStorageKey(profile)); } catch (_) {}
+      });
+
+      function updateExpandButtonLabel() {
+        const visible = getVisibleDayDetails();
+        if (!expandBtn || visible.length === 0) return;
+        const allOpen = visible.every(d => d.open);
+        expandBtn.textContent = allOpen ? "Collapse all days" : "Expand all days";
+      }
+
+      expandBtn?.addEventListener("click", () => {
+        const visible = getVisibleDayDetails();
+        if (visible.length === 0) return;
+        const allOpen = visible.every(d => d.open);
+        visible.forEach(d => d.open = !allOpen);
+        updateExpandButtonLabel();
+      });
+
+      // Profile buttons
+      btnBrajan?.addEventListener("click", () => setActiveProfile("brajan"));
+      btnAbigail?.addEventListener("click", () => setActiveProfile("abigail"));
+
+      // Initial
+      setActiveProfile(getActiveProfile());
+    })();
+  </script>
+</body>
+</html>
