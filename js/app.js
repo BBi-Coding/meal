@@ -46,33 +46,39 @@
       "shopping.swaps.1": "Chicken ↔ turkey ↔ lean (pork-free) mince",
       "shopping.swaps.2": "Rice ↔ potatoes ↔ oats",
       "shopping.swaps.3": "Fresh veg ↔ frozen veg (often cheaper + easier)",
+      "shopping.both.title": "Both together (Brajan + Abigail, 1 week)",
+      "shopping.both.note": "If you shop together, this is a rough guide for 7 days of dinners + next-day work meals + simple snacks for both of you.",
+      "shopping.both.protein": "Protein: ~3.5–4.0 kg chicken/turkey, ~2.0–2.5 kg lean mince, ~1.0–1.2 kg salmon, 40–50 eggs, ~6–8 kg Skyr/Quark.",
+      "shopping.both.carbs": "Carbs: ~2.0–2.5 kg oats, ~2.5–3.5 kg rice (or microwave rice), ~8–12 kg potatoes, 5–8 packs rice cakes, ~25–30 pieces fruit, ~2.5–4.5 kg frozen berries.",
+      "shopping.both.fats": "Fats/extras: 1–2 bottles olive oil, 2 jars peanut butter, ~0.5–1.0 kg nuts.",
+      "shopping.both.veg": "Vegetables: ~4–6 kg frozen veg mix and aim ~0.5–0.6 kg fresh veg per day together (~3.5–4.0 kg/week).",
       "rules.title": "Weekly adjustment rules (the key to gaining)",
       "rules.footer": "This is a template. Your real “maintenance” can vary—weekly trend adjustment is what makes it work.",
 
-      // Shopping items (Brajan)
-      "shopping.item.b_p1": "Chicken breast / turkey",
-      "shopping.qty.b_p1": "~2.0–2.5 kg raw",
-      "shopping.item.b_p2": "Lean mince (beef or turkey)",
-      "shopping.qty.b_p2": "~1.2–1.5 kg",
+      // Shopping items (Brajan) — 7 dinners × 2 portions + snacks
+      "shopping.item.b_p1": "Chicken breast / turkey (for dinners + next-day work meals)",
+      "shopping.qty.b_p1": "~2.0–2.5 kg raw (7 dinners × 2 portions)",
+      "shopping.item.b_p2": "Lean mince (beef or turkey) for mince dinners",
+      "shopping.qty.b_p2": "~1.2–1.5 kg (covers 2–3 mince dinners × 2 portions)",
       "shopping.item.b_p3": "Salmon (optional but recommended)",
-      "shopping.qty.b_p3": "~0.5–0.7 kg",
+      "shopping.qty.b_p3": "~0.5–0.7 kg (for 1–2 salmon dinners × 2 portions)",
       "shopping.item.b_p4": "Eggs",
       "shopping.qty.b_p4": "24–30",
-      "shopping.item.b_p5": "Skyr/Quark (laktosefrei)",
-      "shopping.qty.b_p5": "~3.5–5.0 kg total",
+      "shopping.item.b_p5": "Skyr/Quark (laktosefrei) for simple snacks",
+      "shopping.qty.b_p5": "~3.5–5.0 kg total (most days as snack)",
       "shopping.item.b_p6": "Protein powder (whey isolate / lactose-free) (optional)",
       "shopping.qty.b_p6": "0–1 shakes/day",
-      "shopping.item.b_c1": "Oats (Haferflocken)",
-      "shopping.qty.b_c1": "~1.0–1.5 kg",
-      "shopping.item.b_c2": "Rice (dry) / microwave rice",
-      "shopping.qty.b_c2": "~1.5–2.0 kg dry (or rice packs)",
-      "shopping.item.b_c3": "Potatoes",
-      "shopping.qty.b_c3": "~5–7 kg",
+      "shopping.item.b_c1": "Oats (Haferflocken) for snacks / adjustments",
+      "shopping.qty.b_c1": "~1.0–1.5 kg (no separate breakfast, mostly snacks)",
+      "shopping.item.b_c2": "Rice (dry) / microwave rice for main dinners",
+      "shopping.qty.b_c2": "~1.5–2.0 kg dry (or rice packs) for 3–4 rice dinners × 2 portions",
+      "shopping.item.b_c3": "Potatoes for potato-based dinners",
+      "shopping.qty.b_c3": "~5–7 kg (several dinners × 2 portions)",
       "shopping.item.b_c4": "Rice cakes",
       "shopping.qty.b_c4": "3–5 packs",
-      "shopping.item.b_c5": "Bananas",
-      "shopping.qty.b_c5": "14–18",
-      "shopping.item.b_c6": "Frozen berries",
+      "shopping.item.b_c5": "Bananas and other fruit",
+      "shopping.qty.b_c5": "14–18 pieces total (for snacks / shakes)",
+      "shopping.item.b_c6": "Frozen berries (for Skyr snacks)",
       "shopping.qty.b_c6": "~1.5–2.5 kg",
       "shopping.item.b_c7": "Honey / jam",
       "shopping.qty.b_c7": "1 jar",
@@ -80,39 +86,39 @@
       "shopping.qty.b_f1": "1 bottle",
       "shopping.item.b_f2": "Peanut butter",
       "shopping.qty.b_f2": "1 jar",
-      "shopping.item.b_f3": "Nuts (if tolerated)",
+      "shopping.item.b_f3": "Nuts (if tolerated) for snacks",
       "shopping.qty.b_f3": "300–500 g",
-      "shopping.item.b_v1": "Frozen vegetable mix",
-      "shopping.qty.b_v1": "~2–3 kg",
+      "shopping.item.b_v1": "Frozen vegetable mix for dinners",
+      "shopping.qty.b_v1": "~2–3 kg (to pair with rice/potato dinners × 2 portions)",
       "shopping.item.b_v2": "Fresh salad + tomatoes/cucumber",
-      "shopping.qty.b_v2": "Aim ~300 g/day",
+      "shopping.qty.b_v2": "Aim ~300 g/day (for dinner + lunch box)",
       "shopping.item.b_v3": "Optional: onions/garlic/spices",
       "shopping.qty.b_v3": "for easy flavor",
 
-      // Shopping items (Abigail)
-      "shopping.item.a_p1": "Chicken breast / turkey",
-      "shopping.qty.a_p1": "~1.2–1.6 kg raw",
-      "shopping.item.a_p2": "Lean mince (beef or turkey)",
-      "shopping.qty.a_p2": "~0.7–1.0 kg",
+      // Shopping items (Abigail) — scaled for her targets
+      "shopping.item.a_p1": "Chicken breast / turkey (for dinners + next-day work meals)",
+      "shopping.qty.a_p1": "~1.2–1.6 kg raw (scaled 7 dinners × 2 portions)",
+      "shopping.item.a_p2": "Lean mince (beef or turkey) for mince dinners",
+      "shopping.qty.a_p2": "~0.7–1.0 kg (2–3 dinners × 2 portions)",
       "shopping.item.a_p3": "Salmon (optional)",
-      "shopping.qty.a_p3": "~0.3–0.5 kg",
+      "shopping.qty.a_p3": "~0.3–0.5 kg (1–2 dinners × 2 portions)",
       "shopping.item.a_p4": "Eggs",
       "shopping.qty.a_p4": "14–20",
-      "shopping.item.a_p5": "Skyr/Quark / yogurt",
-      "shopping.qty.a_p5": "~2.0–3.0 kg total",
+      "shopping.item.a_p5": "Skyr/Quark / yogurt for simple snacks",
+      "shopping.qty.a_p5": "~2.0–3.0 kg total (most days as snack)",
       "shopping.item.a_p6": "Protein powder (optional)",
       "shopping.qty.a_p6": "only if needed",
-      "shopping.item.a_c1": "Oats (Haferflocken)",
-      "shopping.qty.a_c1": "~0.7–1.0 kg",
-      "shopping.item.a_c2": "Rice (dry) / microwave rice",
-      "shopping.qty.a_c2": "~0.9–1.3 kg dry (or rice packs)",
-      "shopping.item.a_c3": "Potatoes",
-      "shopping.qty.a_c3": "~3–5 kg",
+      "shopping.item.a_c1": "Oats (Haferflocken) for snacks / adjustments",
+      "shopping.qty.a_c1": "~0.7–1.0 kg (no separate breakfast, mostly snacks)",
+      "shopping.item.a_c2": "Rice (dry) / microwave rice for main dinners",
+      "shopping.qty.a_c2": "~0.9–1.3 kg dry (or rice packs) for 3–4 dinners × 2 portions",
+      "shopping.item.a_c3": "Potatoes for potato-based dinners",
+      "shopping.qty.a_c3": "~3–5 kg (several dinners × 2 portions)",
       "shopping.item.a_c4": "Rice cakes",
       "shopping.qty.a_c4": "2–3 packs",
-      "shopping.item.a_c5": "Bananas",
-      "shopping.qty.a_c5": "10–14",
-      "shopping.item.a_c6": "Frozen berries",
+      "shopping.item.a_c5": "Bananas and other fruit",
+      "shopping.qty.a_c5": "10–14 pieces total (for snacks / shakes)",
+      "shopping.item.a_c6": "Frozen berries (for Skyr snacks)",
       "shopping.qty.a_c6": "~1.0–2.0 kg",
       "shopping.item.a_c7": "Honey / jam",
       "shopping.qty.a_c7": "1 jar",
@@ -120,12 +126,12 @@
       "shopping.qty.a_f1": "1 bottle",
       "shopping.item.a_f2": "Peanut butter",
       "shopping.qty.a_f2": "1 jar",
-      "shopping.item.a_f3": "Nuts (optional)",
+      "shopping.item.a_f3": "Nuts (optional) for snacks",
       "shopping.qty.a_f3": "200–400 g",
-      "shopping.item.a_v1": "Frozen vegetable mix",
-      "shopping.qty.a_v1": "~1.5–2.5 kg",
+      "shopping.item.a_v1": "Frozen vegetable mix for dinners",
+      "shopping.qty.a_v1": "~1.5–2.5 kg (to pair with rice/potato dinners × 2 portions)",
       "shopping.item.a_v2": "Fresh salad + tomatoes/cucumber",
-      "shopping.qty.a_v2": "Aim ~250–300 g/day",
+      "shopping.qty.a_v2": "Aim ~250–300 g/day (for dinner + lunch box)",
       "shopping.item.a_v3": "Optional: onions/garlic/spices",
       "shopping.qty.a_v3": "for easy flavor",
 
@@ -173,33 +179,39 @@
       "shopping.swaps.1": "Hähnchen ↔ Pute ↔ mageres Hack (ohne Schwein)",
       "shopping.swaps.2": "Reis ↔ Kartoffeln ↔ Haferflocken",
       "shopping.swaps.3": "Frisches Gemüse ↔ TK-Gemüse (oft günstiger + einfacher)",
+      "shopping.both.title": "Beide zusammen (Brajan + Abigail, 1 Woche)",
+      "shopping.both.note": "Wenn ihr gemeinsam einkauft, sind diese Mengen eine grobe Orientierung für 7 Tage Abendessen + Arbeitsmahlzeiten am nächsten Tag + einfache Snacks für euch beide.",
+      "shopping.both.protein": "Protein: ~3,5–4,0 kg Hähnchen/Pute, ~2,0–2,5 kg mageres Hack, ~1,0–1,2 kg Lachs, 40–50 Eier, ~6–8 kg Skyr/Quark.",
+      "shopping.both.carbs": "Kohlenhydrate: ~2,0–2,5 kg Haferflocken, ~2,5–3,5 kg Reis (oder Mikrowellenreis), ~8–12 kg Kartoffeln, 5–8 Packungen Reiswaffeln, ~25–30 Stück Obst, ~2,5–4,5 kg TK-Beeren.",
+      "shopping.both.fats": "Fette/Extras: 1–2 Flaschen Olivenöl, 2 Gläser Erdnussbutter, ~0,5–1,0 kg Nüsse.",
+      "shopping.both.veg": "Gemüse: ~4–6 kg TK-Gemüsemix und zusammen ~0,5–0,6 kg frisches Gemüse pro Tag anpeilen (~3,5–4,0 kg/Woche).",
       "rules.title": "Wöchentliche Anpassungsregeln (der Schlüssel zum Zunehmen)",
       "rules.footer": "Das ist eine Vorlage. Dein echtes „Erhaltungsniveau“ kann variieren – die wöchentliche Trend-Anpassung macht’s zuverlässig.",
 
-      // Shopping items (Brajan)
-      "shopping.item.b_p1": "Hähnchenbrust / Pute",
-      "shopping.qty.b_p1": "~2,0–2,5 kg roh",
-      "shopping.item.b_p2": "Mageres Hack (Rind oder Pute)",
-      "shopping.qty.b_p2": "~1,2–1,5 kg",
+      // Shopping items (Brajan) — 7 Abendessen × 2 Portionen + Snacks
+      "shopping.item.b_p1": "Hähnchenbrust / Pute (für Abendessen + Arbeitsmahlzeit am nächsten Tag)",
+      "shopping.qty.b_p1": "~2,0–2,5 kg roh (7 Abendessen × 2 Portionen)",
+      "shopping.item.b_p2": "Mageres Hack (Rind oder Pute) für Hack-Gerichte",
+      "shopping.qty.b_p2": "~1,2–1,5 kg (reicht für 2–3 Hack-Abendessen × 2 Portionen)",
       "shopping.item.b_p3": "Lachs (optional, aber empfohlen)",
-      "shopping.qty.b_p3": "~0,5–0,7 kg",
+      "shopping.qty.b_p3": "~0,5–0,7 kg (für 1–2 Lachs-Abendessen × 2 Portionen)",
       "shopping.item.b_p4": "Eier",
       "shopping.qty.b_p4": "24–30",
-      "shopping.item.b_p5": "Skyr/Quark (laktosefrei)",
-      "shopping.qty.b_p5": "~3,5–5,0 kg gesamt",
+      "shopping.item.b_p5": "Skyr/Quark (laktosefrei) für einfache Snacks",
+      "shopping.qty.b_p5": "~3,5–5,0 kg gesamt (an den meisten Tagen als Snack)",
       "shopping.item.b_p6": "Proteinpulver (Whey Isolat / laktosefrei) (optional)",
       "shopping.qty.b_p6": "0–1 Shakes/Tag",
-      "shopping.item.b_c1": "Haferflocken",
-      "shopping.qty.b_c1": "~1,0–1,5 kg",
-      "shopping.item.b_c2": "Reis (trocken) / Mikrowellenreis",
-      "shopping.qty.b_c2": "~1,5–2,0 kg trocken (oder Reispacks)",
-      "shopping.item.b_c3": "Kartoffeln",
-      "shopping.qty.b_c3": "~5–7 kg",
+      "shopping.item.b_c1": "Haferflocken für Snacks / Anpassungen",
+      "shopping.qty.b_c1": "~1,0–1,5 kg (kein separates Frühstück, hauptsächlich Snacks)",
+      "shopping.item.b_c2": "Reis (trocken) / Mikrowellenreis für Haupt-Abendessen",
+      "shopping.qty.b_c2": "~1,5–2,0 kg trocken (oder Reispacks) für 3–4 Reis-Abendessen × 2 Portionen",
+      "shopping.item.b_c3": "Kartoffeln für kartoffelbasierte Abendessen",
+      "shopping.qty.b_c3": "~5–7 kg (mehrere Abendessen × 2 Portionen)",
       "shopping.item.b_c4": "Reiswaffeln",
       "shopping.qty.b_c4": "3–5 Packungen",
-      "shopping.item.b_c5": "Bananen",
-      "shopping.qty.b_c5": "14–18",
-      "shopping.item.b_c6": "TK-Beeren",
+      "shopping.item.b_c5": "Bananen und anderes Obst",
+      "shopping.qty.b_c5": "14–18 Stück gesamt (für Snacks / Shakes)",
+      "shopping.item.b_c6": "TK-Beeren (für Skyr-Snacks)",
       "shopping.qty.b_c6": "~1,5–2,5 kg",
       "shopping.item.b_c7": "Honig / Marmelade",
       "shopping.qty.b_c7": "1 Glas",
@@ -207,39 +219,39 @@
       "shopping.qty.b_f1": "1 Flasche",
       "shopping.item.b_f2": "Erdnussbutter",
       "shopping.qty.b_f2": "1 Glas",
-      "shopping.item.b_f3": "Nüsse (wenn verträglich)",
+      "shopping.item.b_f3": "Nüsse (wenn verträglich) für Snacks",
       "shopping.qty.b_f3": "300–500 g",
-      "shopping.item.b_v1": "TK-Gemüsemix",
-      "shopping.qty.b_v1": "~2–3 kg",
+      "shopping.item.b_v1": "TK-Gemüsemix für Abendessen",
+      "shopping.qty.b_v1": "~2–3 kg (zu Reis-/Kartoffel-Abendessen × 2 Portionen)",
       "shopping.item.b_v2": "Salat + Tomaten/Gurke",
-      "shopping.qty.b_v2": "Ziel ~300 g/Tag",
+      "shopping.qty.b_v2": "Ziel ~300 g/Tag (für Abendessen + Lunchbox)",
       "shopping.item.b_v3": "Optional: Zwiebeln/Knoblauch/Gewürze",
       "shopping.qty.b_v3": "für einfachen Geschmack",
 
-      // Shopping items (Abigail)
-      "shopping.item.a_p1": "Hähnchenbrust / Pute",
-      "shopping.qty.a_p1": "~1,2–1,6 kg roh",
-      "shopping.item.a_p2": "Mageres Hack (Rind oder Pute)",
-      "shopping.qty.a_p2": "~0,7–1,0 kg",
+      // Shopping items (Abigail) — skaliert für ihr Ziel
+      "shopping.item.a_p1": "Hähnchenbrust / Pute (für Abendessen + Arbeitsmahlzeit am nächsten Tag)",
+      "shopping.qty.a_p1": "~1,2–1,6 kg roh (skaliert für 7 Abendessen × 2 Portionen)",
+      "shopping.item.a_p2": "Mageres Hack (Rind oder Pute) für Hack-Gerichte",
+      "shopping.qty.a_p2": "~0,7–1,0 kg (2–3 Abendessen × 2 Portionen)",
       "shopping.item.a_p3": "Lachs (optional)",
-      "shopping.qty.a_p3": "~0,3–0,5 kg",
+      "shopping.qty.a_p3": "~0,3–0,5 kg (für 1–2 Abendessen × 2 Portionen)",
       "shopping.item.a_p4": "Eier",
       "shopping.qty.a_p4": "14–20",
-      "shopping.item.a_p5": "Skyr/Quark / Joghurt",
-      "shopping.qty.a_p5": "~2,0–3,0 kg gesamt",
+      "shopping.item.a_p5": "Skyr/Quark / Joghurt für einfache Snacks",
+      "shopping.qty.a_p5": "~2,0–3,0 kg gesamt (an den meisten Tagen als Snack)",
       "shopping.item.a_p6": "Proteinpulver (optional)",
       "shopping.qty.a_p6": "nur bei Bedarf",
-      "shopping.item.a_c1": "Haferflocken",
-      "shopping.qty.a_c1": "~0,7–1,0 kg",
-      "shopping.item.a_c2": "Reis (trocken) / Mikrowellenreis",
-      "shopping.qty.a_c2": "~0,9–1,3 kg trocken (oder Reispacks)",
-      "shopping.item.a_c3": "Kartoffeln",
-      "shopping.qty.a_c3": "~3–5 kg",
+      "shopping.item.a_c1": "Haferflocken für Snacks / Anpassungen",
+      "shopping.qty.a_c1": "~0,7–1,0 kg (kein separates Frühstück, hauptsächlich Snacks)",
+      "shopping.item.a_c2": "Reis (trocken) / Mikrowellenreis für Haupt-Abendessen",
+      "shopping.qty.a_c2": "~0,9–1,3 kg trocken (oder Reispacks) für 3–4 Abendessen × 2 Portionen",
+      "shopping.item.a_c3": "Kartoffeln für kartoffelbasierte Abendessen",
+      "shopping.qty.a_c3": "~3–5 kg (mehrere Abendessen × 2 Portionen)",
       "shopping.item.a_c4": "Reiswaffeln",
       "shopping.qty.a_c4": "2–3 Packungen",
-      "shopping.item.a_c5": "Bananen",
-      "shopping.qty.a_c5": "10–14",
-      "shopping.item.a_c6": "TK-Beeren",
+      "shopping.item.a_c5": "Bananen und anderes Obst",
+      "shopping.qty.a_c5": "10–14 Stück gesamt (für Snacks / Shakes)",
+      "shopping.item.a_c6": "TK-Beeren (für Skyr-Snacks)",
       "shopping.qty.a_c6": "~1,0–2,0 kg",
       "shopping.item.a_c7": "Honig / Marmelade",
       "shopping.qty.a_c7": "1 Glas",
@@ -247,12 +259,12 @@
       "shopping.qty.a_f1": "1 Flasche",
       "shopping.item.a_f2": "Erdnussbutter",
       "shopping.qty.a_f2": "1 Glas",
-      "shopping.item.a_f3": "Nüsse (optional)",
+      "shopping.item.a_f3": "Nüsse (optional) für Snacks",
       "shopping.qty.a_f3": "200–400 g",
-      "shopping.item.a_v1": "TK-Gemüsemix",
-      "shopping.qty.a_v1": "~1,5–2,5 kg",
+      "shopping.item.a_v1": "TK-Gemüsemix für Abendessen",
+      "shopping.qty.a_v1": "~1,5–2,5 kg (zu Reis-/Kartoffel-Abendessen × 2 Portionen)",
       "shopping.item.a_v2": "Salat + Tomaten/Gurke",
-      "shopping.qty.a_v2": "Ziel ~250–300 g/Tag",
+      "shopping.qty.a_v2": "Ziel ~250–300 g/Tag (für Abendessen + Lunchbox)",
       "shopping.item.a_v3": "Optional: Zwiebeln/Knoblauch/Gewürze",
       "shopping.qty.a_v3": "für einfachen Geschmack",
 
@@ -286,7 +298,7 @@
     const root = document.getElementById("rotation");
     if (!root) return;
 
-    const targets = Array.from(root.querySelectorAll("summary strong, summary span, h4, p.muted"));
+    const targets = Array.from(root.querySelectorAll("summary strong, summary span, h4, p.muted, li"));
     targets.forEach(el => {
       if (el.hasAttribute("data-i18n") || el.hasAttribute("data-i18n-html")) return;
       const stored = el.getAttribute("data-i18n-source");
@@ -299,6 +311,51 @@
       }
 
       const x = base
+        // Common phrases for the new routine (full sentences/headlines)
+        .replace(/You cook dinner once, eat it at home and save the second portion as tomorrow’s work meal\./g,
+          "Du kochst das Abendessen einmal, isst es zu Hause und hebst die zweite Portion als Arbeitsmahlzeit für morgen auf.")
+        .replace(/Cook once, eat twice: dinner \+ tomorrow’s work meal/gi,
+          "Einmal kochen, zweimal essen: Abendessen + Arbeitsmahlzeit für morgen")
+        .replace(/Choose dinners you liked and keep the cook-once-eat-twice system/gi,
+          "Wähle Lieblings-Abendessen und behalte das „einmal kochen, zweimal essen“-System bei")
+        .replace(/Repeat what she likes most • keep the cook-once-eat-twice system/gi,
+          "Wiederhole, was sie am liebsten isst • behalte das „einmal kochen, zweimal essen“-System bei")
+        .replace(/Work meal —/g, "Arbeitsmahlzeit —")
+        .replace(/Simple snack —/g, "Einfacher Snack —")
+        .replace(/Simple snack \+ add-ons/gi, "Einfacher Snack + Extras")
+        .replace(/\(from yesterday’s dinner\)/g, "(vom gestrigen Abendessen)")
+        .replace(/\(cook 2 portions\)/g, "(2 Portionen kochen)")
+        .replace(/from Day (\d+) dinner/gi, "vom Tag-$1-Abendessen")
+        .replace(/from Day (\d+) (?:dinner|Abendessen)/gi, "vom Tag-$1-Abendessen")
+        .replace(/Yesterday’s dinner/gi, "gestriges Abendessen")
+        .replace(/1 portion of yesterday’s (.+?) from the fridge\./g,
+          "1 Portion der gestrigen $1 aus dem Kühlschrank.")
+        .replace(/1 portion of (.+?) cooked on Day (\d+)\./g,
+          "1 Portion von $1, gekocht an Tag $2.")
+        .replace(/Rough guide for 1 portion:/g, "Grobe Orientierung für 1 Portion:")
+        .replace(/If this is your very first day on the plan, just use the same chicken rice bowl you cook for dinner below and pack half for work\./g,
+          "Wenn das dein erster Tag mit diesem Plan ist, benutze einfach dieselbe Hähnchen-Reis-Schüssel, die du unten fürs Abendessen kochst, und packe die Hälfte für die Arbeit ein.")
+        .replace(/Eat one portion for dinner, cool the second portion and store it (in a box )?for tomorrow’s work meal\./g,
+          "Iss eine Portion zum Abendessen, lass die zweite abkühlen und bewahre sie in einer Dose als Arbeitsmahlzeit für morgen auf.")
+        .replace(/Cook it as 2 portions: 1 for tonight, 1 for tomorrow’s work meal when you start the rotation again\./g,
+          "Koche das Gericht als 2 Portionen: 1 für heute Abend, 1 als Arbeitsmahlzeit für morgen, wenn du die Rotation neu startest.")
+        .replace(/Keep protein high \(~200 g\/day\) and use rice\/potatoes\/oats as main carbs\./g,
+          "Halte das Protein hoch (~200 g\/Tag) und nutze Reis\/Kartoffeln\/Haferflocken als Haupt-Kohlenhydrate.")
+        .replace(/Protein: aim ~110–130 g\/day\./g,
+          "Protein: Ziel ~110–130 g\/Tag.")
+        .replace(/Calories: ~2300\/day \(add a snack if weight isn’t moving\)\./g,
+          "Kalorien: ~2300\/Tag (füge einen Snack hinzu, wenn sich das Gewicht nicht bewegt).")
+        // Dish names and combinations
+        .replace(/Chicken rice bowl/gi, "Hähnchen-Reis-Schüssel")
+        .replace(/Turkey rice bowl/gi, "Puten-Reis-Schüssel")
+        .replace(/Turkey bowl/gi, "Puten-Bowl")
+        .replace(/Salmon \+ potatoes/gi, "Lachs + Kartoffeln")
+        .replace(/Mince rice bowl/gi, "Hack-Reis-Schüssel")
+        .replace(/Ready rice \+ cooked protein/gi, "Fertiger Reis + gegartes Protein")
+        .replace(/Ready rice \+ protein/gi, "Fertiger Reis + Protein")
+        .replace(/Bigger chicken rice/gi, "Große Hähnchen-Reis-Portion")
+        // Generic word swaps (keep after specific phrases)
+        .replace(/\b7-day rotation\b/gi, "7-Tage-Rotation")
         .replace(/\b7-day rotation\b/gi, "7-Tage-Rotation")
         .replace(/\bDay\b/g, "Tag")
         .replace(/\bRough total:\b/g, "Grobe Summe:")
@@ -308,12 +365,17 @@
         .replace(/\bDinner\b/g, "Abendessen")
         .replace(/\bEggs\b/g, "Eier")
         .replace(/\bOats\b/g, "Haferflocken")
+        .replace(/\bChicken breast\b/g, "Hähnchenbrust")
         .replace(/\bChicken\b/g, "Hähnchen")
         .replace(/\bTurkey\b/g, "Pute")
         .replace(/\bRice\b/g, "Reis")
         .replace(/\bPotatoes\b/g, "Kartoffeln")
         .replace(/\bSalmon\b/g, "Lachs")
         .replace(/\bMince\b/g, "Hack")
+        .replace(/\bFrozen berries\b/g, "TK-Beeren")
+        .replace(/\bHoney\/jam\b/g, "Honig/Marmelade")
+        .replace(/\bVeg\b/g, "Gemüse")
+        .replace(/\bOlive oil\b/g, "Olivenöl")
         .replace(/\boptional\b/gi, "optional");
       el.textContent = x;
     });
